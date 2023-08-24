@@ -3,6 +3,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import React, {useContext} from 'react'
 import AuthNavigator from './auth/AuthNavigator';
 import Chat from '../screens/Chat';
+import DrawerNavigator from './DrawerNavigator';
 
 
 const Stack = createNativeStackNavigator();
@@ -14,7 +15,7 @@ const RootNavigator = () => {
         headerShown: false
       }}
     >
-      <Stack.Screen name="Chat" component={Chat} />
+      <Stack.Screen name="Drawer" component={DrawerNavigator} />
       {/* <Stack.Screen name="AuthNavigator" component={AuthNavigator} /> */}
     </Stack.Navigator>
   )
