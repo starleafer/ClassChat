@@ -3,14 +3,14 @@ import { View, Text, StyleSheet } from 'react-native'
 
 export default function Login() {
   return (
-    <View style={styles.container}>
-        <Text>HEEEEJ</Text>
+    <View style={styles.loginContainer}>
+        <Text>Log in</Text>
     </View>
   )
 }
 
 const styles = StyleSheet.create({
-    container: {
+  loginContainer: {
         backgroundColor: 'tomato'
     }
 })
