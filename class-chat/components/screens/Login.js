@@ -4,7 +4,7 @@ import { View, Text, StyleSheet } from 'react-native'
 export default function Login() {
   return (
     <View style={styles.container}>
-        <Text>HEJ</Text>
+        <Text>HEEEEJ</Text>
     </View>
   )
 }
