@@ -3,6 +3,7 @@ import { createDrawerNavigator } from '@react-navigation/drawer';
 
 import React from 'react'
 import Chat from '../screens/Chat';
+import Profile from '../screens/Profile';
 
 const Drawer = createDrawerNavigator();
 
@@ -14,10 +15,10 @@ const DrawerNavigator = () => {
             name="Chat"
             component={Chat}
              />
-        {/* <Drawer.Screen 
+        <Drawer.Screen 
             name=""
-            component={}
-             /> */}
+            component={Profile}
+             />
     </Drawer.Navigator>
   )
 }

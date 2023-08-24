@@ -15,8 +15,8 @@ const RootNavigator = () => {
         headerShown: false
       }}
     >
-      <Stack.Screen name="Drawer" component={DrawerNavigator} />
-      {/* <Stack.Screen name="AuthNavigator" component={AuthNavigator} /> */}
+      {/* <Stack.Screen name="Drawer" component={DrawerNavigator} /> */}
+      <Stack.Screen name="AuthNavigator" component={AuthNavigator} />
     </Stack.Navigator>
   )
 }
