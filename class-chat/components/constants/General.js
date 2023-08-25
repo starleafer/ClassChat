@@ -1,0 +1,1 @@
+export const API_ROOT_URL = "https://chat-api-with-auth.up.railway.app/"

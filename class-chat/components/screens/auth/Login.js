@@ -1,13 +1,27 @@
-import React from 'react'
+import React, { useContext, useState } from 'react'
 import { View, Text, StyleSheet, TextInput, Button } from 'react-native'
+import { AuthContext } from '../../contexts/AuthContext'
 
 export default function Login({ navigation }) {
+
+  const {handleLogin} = useContext(AuthContext);
+  const [username, setUsername] = useState('testing53');
+    const [password, setPassword] = useState('123');
+
   return (
     <View style={styles.container}>
-      <TextInput style={styles.inputs}>Username</TextInput>
-      <TextInput style={styles.inputs}>Password</TextInput>
+      <TextInput 
+        style={styles.inputs} 
+        value={username}
+        onChangeText={username => setUsername(username)}>
+      </TextInput>
+      <TextInput 
+        style={styles.inputs} 
+        value={password} 
+        onChangeText={password => setPassword(password)}>
+      </TextInput>
       <View style={styles.btnContainer}>
-        <Button style={styles.buttons} title="Login" />
+        <Button style={styles.buttons} title="Login" onPress={() => handleLogin(username, password)} />
         <Button style={styles.buttons} title="Register user" onPress={() => navigation.navigate('RegisterUser')} />
       </View>
     </View>

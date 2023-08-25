@@ -4,20 +4,31 @@ import React, {useContext} from 'react'
 import AuthNavigator from './auth/AuthNavigator';
 import Chat from '../screens/Chat';
 import DrawerNavigator from './DrawerNavigator';
+import { AuthContext } from '../contexts/AuthContext';
 
 
 const Stack = createNativeStackNavigator();
 
 const RootNavigator = () => {
+
+  const {accessToken} = useContext(AuthContext);
+
   return (
-    <Stack.Navigator
-      screenOptions={{
-        headerShown: false
-      }}
-    >
-      {/* <Stack.Screen name="Drawer" component={DrawerNavigator} /> */}
-      <Stack.Screen name="AuthNavigator" component={AuthNavigator} />
-    </Stack.Navigator>
+    // <Stack.Navigator
+    //   screenOptions={{
+    //     headerShown: false
+    //   }}
+    // >
+    //   <Stack.Screen name="Drawer" component={DrawerNavigator} />
+    //   <Stack.Screen name="AuthNavigator" component={AuthNavigator} />
+    // </Stack.Navigator>
+    <>
+      {
+        accessToken !== null
+          ? <DrawerNavigator />
+          : <AuthNavigator />
+      }
+    </>
   )
 }
 

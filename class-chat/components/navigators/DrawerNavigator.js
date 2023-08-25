@@ -14,11 +14,11 @@ const DrawerNavigator = () => {
         <Drawer.Screen 
             name="Chat"
             component={Chat}
-             />
+        />
         <Drawer.Screen 
-            name=""
+            name="Profile"
             component={Profile}
-             />
+        />
     </Drawer.Navigator>
   )
 }
