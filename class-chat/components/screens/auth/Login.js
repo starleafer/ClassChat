@@ -6,7 +6,7 @@ export default function Login({ navigation }) {
 
   const {handleLogin} = useContext(AuthContext);
   const [username, setUsername] = useState('testing53');
-    const [password, setPassword] = useState('123');
+  const [password, setPassword] = useState('123');
 
   return (
     <View style={styles.container}>
@@ -39,6 +39,8 @@ const styles = StyleSheet.create({
       borderWidth: 1,
       marginTop: 20,
       marginHorizontal: 40,
+      padding: 10,
+
     },
     btnContainer: {
       marginTop: 60,
