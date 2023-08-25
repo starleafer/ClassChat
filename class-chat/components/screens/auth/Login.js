@@ -39,6 +39,8 @@ const styles = StyleSheet.create({
       borderWidth: 1,
       marginTop: 20,
       marginHorizontal: 40,
+      padding: 10,
+
     },
     btnContainer: {
       marginTop: 60,

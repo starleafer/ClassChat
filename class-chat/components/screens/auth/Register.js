@@ -1,44 +1,46 @@
-import { StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native'
-import React from 'react'
+import React, {useState} from "react";
+import { StyleSheet, Text, TextInput, TouchableOpacity, View } from "react-native";
 
-const Register = () => {
+
+export default function Register({ navigation }) {
+ 
+
   return (
     <View style={styles.container}>
       <View style={styles.inputContainer}>
-        <TextInput 
-          style={styles.inputs}
-          placeholder="Username"
-        />
-        <TextInput 
-          style={styles.inputs}
-          placeholder="Password"
-        />
+        <TextInput style={styles.inputs} placeholder="Username" />
+        <TextInput style={styles.inputs} placeholder="Password" />
       </View>
       <View style={styles.buttonContainer}>
-        <TouchableOpacity style={[styles.buttons, { borderColor: 'green'}]}>
-          <Text style={{ color: 'green'}}>Register</Text>
+        <TouchableOpacity
+          style={[styles.buttons, { borderColor: "green" }]}
+          
+        >
+          <Text style={{ color: "green" }}>Register</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.buttons}>
-          <Text>&lt; Back to Login page</Text>
+        <TouchableOpacity 
+          style={styles.buttons} 
+          onPress={() => navigation.navigate('Login')}
+        >
+          <Text >&lt; Back to Login page</Text>
         </TouchableOpacity>
       </View>
     </View>
-  )
-}
+  );
+};
 
-export default Register
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: 'bisque',
+    backgroundColor: "bisque",
     height: 730,
   },
   inputContainer: {
     marginTop: 100,
   },
   buttonContainer: {
-    justifyContent: 'center',
-    alignItems: 'center',
+    justifyContent: "center",
+    alignItems: "center",
   },
   inputs: {
     height: 50,
@@ -52,7 +54,7 @@ const styles = StyleSheet.create({
     borderWidth: 2,
     height: 60,
     width: 180,
-    justifyContent: 'center',
-    alignItems: 'center',
+    justifyContent: "center",
+    alignItems: "center",
   },
-})
+});
