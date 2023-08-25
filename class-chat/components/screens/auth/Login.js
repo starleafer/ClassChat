@@ -6,7 +6,7 @@ export default function Login({ navigation }) {
 
   const {handleLogin} = useContext(AuthContext);
   const [username, setUsername] = useState('testing53');
-    const [password, setPassword] = useState('123');
+  const [password, setPassword] = useState('123');
 
   return (
     <View style={styles.container}>

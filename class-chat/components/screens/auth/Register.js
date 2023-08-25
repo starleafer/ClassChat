@@ -1,29 +1,55 @@
-import React, {useState} from "react";
+import React, { useContext, useState } from "react";
 import { StyleSheet, Text, TextInput, TouchableOpacity, View } from "react-native";
+import { AuthContext } from "../../contexts/AuthContext";
 
 
 export default function Register({ navigation }) {
- 
+  const {registerUser, errormsg} = useContext(AuthContext)
+  const [regUsername, setRegUsername] = useState('');
+  const [regPassword, setRegPassword] = useState('');
+
+  const confirmRegister = () => {
+    registerUser(regUsername, regPassword)
+    console.log(errormsg)
+    if (errormsg !== null) {
+      navigation.navigate('Login')
+    }
+  }
 
   return (
     <View style={styles.container}>
       <View style={styles.inputContainer}>
-        <TextInput style={styles.inputs} placeholder="Username" />
-        <TextInput style={styles.inputs} placeholder="Password" />
+        <TextInput 
+          style={styles.inputs} 
+          placeholder="Username"
+          value={regUsername}
+          onChangeText={username => setRegUsername(username)}
+        />
+        <TextInput 
+          style={styles.inputs} 
+          placeholder="Password"
+          value={regPassword}
+          onChangeText={password => setRegPassword(password)}
+        />
       </View>
       <View style={styles.buttonContainer}>
-        <TouchableOpacity
+
+        {/* Register button */}
+        <TouchableOpacity 
           style={[styles.buttons, { borderColor: "green" }]}
-          
+          onPress={confirmRegister}
         >
           <Text style={{ color: "green" }}>Register</Text>
         </TouchableOpacity>
+
+        {/* Back button */}
         <TouchableOpacity 
           style={styles.buttons} 
           onPress={() => navigation.navigate('Login')}
         >
           <Text >&lt; Back to Login page</Text>
         </TouchableOpacity>
+
       </View>
     </View>
   );
