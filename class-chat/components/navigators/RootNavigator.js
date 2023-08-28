@@ -1,6 +1,6 @@
 import { StyleSheet, Text, View } from 'react-native'
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import React, {useContext} from 'react'
+import React, {useContext, useEffect} from 'react'
 import AuthNavigator from './auth/AuthNavigator';
 import Chat from '../screens/Chat';
 import DrawerNavigator from './DrawerNavigator';
@@ -11,7 +11,11 @@ const Stack = createNativeStackNavigator();
 
 const RootNavigator = () => {
 
-  const {accessToken} = useContext(AuthContext);
+  const {accessToken, isLoggedIn} = useContext(AuthContext);
+
+  useEffect(() => {
+    isLoggedIn();
+  },[])
 
   return (
     // <Stack.Navigator

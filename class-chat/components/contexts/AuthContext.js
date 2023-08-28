@@ -1,18 +1,18 @@
 import { View, Text } from 'react-native'
-import React, { createContext, useState } from 'react'
+import React, { createContext, useEffect, useState } from 'react'
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { API_ROOT_URL } from '../constants/General';
 
 export const AuthContext = createContext()
 
 const AuthProvider = ({children}) => {
-
-    const [accessToken, setAccessToken] = useState(null);
+    
     const [errormsg, setErrorMsg] = useState(null);
-
+    const [accessToken, setAccessToken] = useState('');
+    
     const fetchAuthToken = async (username, password) => {
         try {
-            console.log(username + password)
+            // console.log(username + password)
             
             const response = await fetch("https://chat-api-with-auth.up.railway.app/auth/token", {
                 method: 'POST',
@@ -27,39 +27,57 @@ const AuthProvider = ({children}) => {
                 });
                 
                 const authorization = await response.json();
-                console.log(authorization)
 
+                
                 if(authorization.status == 401) {
                     if(authorization.message === 'Incorrect user information') {
-                        return alert('FU')
+                        return alert(authorization.message)
                     }
                     else return authorization.message
                 }
+                
+                return await AsyncStorage.setItem('accessToken', authorization.data.accessToken)
 
-                setAccessToken(authorization.data.accessToken)
+        } catch (error) {
+            console.log('fetchAuthToken catch -> '+error)
+        }
+    }
 
+
+    
+    const isLoggedIn = () => {
+        try {
+            const token = AsyncStorage.getItem('accessToken')
+            setAccessToken(token)
         } catch (error) {
             console.log(error)
         }
     }
+    
+    useEffect(() => {
+            // setAccessToken()
+    },[])
 
     const handleLogin = async (username, password) => {
         try {
-            fetchAuthToken(username, password)
-            await AsyncStorage.setItem('accessToken', accessToken)
+            const token = fetchAuthToken(username, password)
+            setAccessToken(token)
+            console.log('handleLogin accessToken --> '+accessToken)
+            
             
         } catch (error) {
-            console.log(error)
+            console.log('handleLogin catch -> '+error)
         }
     }
 
     const handleLogout = async () => {
         try {
+            console.log('handleLogout should not see this')
             await AsyncStorage.removeItem('accessToken')
             setAccessToken(null)
             
         } catch (error) {
-            console.log(error)
+            console.log('handleLogout catch -> '+ error)
         }
     }
 
@@ -80,7 +98,7 @@ const AuthProvider = ({children}) => {
                 });
 
                 const registration = await response.json();
-                console.log(registration)
+                // console.log(registration)
 
                 if(registration.status == 409 || registration.status == 500 ) {
                     if(registration.message === 'Username already exists') {
@@ -93,7 +111,7 @@ const AuthProvider = ({children}) => {
                     else return alert(registration.message)
                 }
         } catch (error) {
-            console.log(error)
+            console.log('registerUser catch -> '+error)
         }
     }
 
@@ -101,7 +119,7 @@ const AuthProvider = ({children}) => {
 
 
     return (
-        <AuthContext.Provider value={{accessToken, handleLogin, handleLogout, registerUser, errormsg}}>
+        <AuthContext.Provider value={{accessToken, handleLogin, handleLogout, registerUser, errormsg, isLoggedIn}}>
           {children}
         </AuthContext.Provider>
       )
