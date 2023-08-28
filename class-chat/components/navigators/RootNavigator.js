@@ -13,9 +13,9 @@ const RootNavigator = () => {
 
   const {accessToken, isLoggedIn} = useContext(AuthContext);
 
-  useEffect(() => {
-    isLoggedIn();
-  },[])
+  // useEffect(() => {
+  //   isLoggedIn();
+  // },[])
 
   return (
     // <Stack.Navigator

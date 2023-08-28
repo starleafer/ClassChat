@@ -10,7 +10,7 @@ const AuthProvider = ({children}) => {
     const [errormsg, setErrorMsg] = useState(null);
     const [accessToken, setAccessToken] = useState('');
     
-    const fetchAuthToken = async (username, password) => {
+    const handleLogin = async (username, password) => {
         try {
             // console.log(username + password)
             
@@ -27,7 +27,8 @@ const AuthProvider = ({children}) => {
                 });
                 
                 const authorization = await response.json();
-
+                await AsyncStorage.setItem('accessToken', authorization.data.accessToken)
+                setAccessToken(authorization.data.accessToken)
                 
                 if(authorization.status == 401) {
                     if(authorization.message === 'Incorrect user information') {
@@ -36,40 +37,35 @@ const AuthProvider = ({children}) => {
                     else return authorization.message
                 }
                 
-                return await AsyncStorage.setItem('accessToken', authorization.data.accessToken)
 
         } catch (error) {
             console.log('fetchAuthToken catch -> '+error)
         }
     }
-
-
     
-    const isLoggedIn = () => {
+    const isLoggedIn = async () => {
         try {
-            const token = AsyncStorage.getItem('accessToken')
+            const token = await AsyncStorage.getItem('accessToken')
             setAccessToken(token)
+            console.log(accessToken)
         } catch (error) {
             console.log(error)
         }
     }
     
-    useEffect(() => {
-            // setAccessToken()
-    },[])
-
-    const handleLogin = async (username, password) => {
-        try {
-            const token = fetchAuthToken(username, password)
-            setAccessToken(token)
-            console.log('handleLogin accessToken --> '+accessToken)
+    
+    // const handleLogin = async (username, password) => {
+    //     try {
+    //         const token = fetchAuthToken(username, password)
+    //         setAccessToken(token)
+    //         console.log('handleLogin accessToken --> '+accessToken)
             
             
-        } catch (error) {
-            console.log('handleLogin catch -> '+error)
-        }
-    }
-
+    //     } catch (error) {
+    //         console.log('handleLogin catch -> '+error)
+    //     }
+    // }
+    
     const handleLogout = async () => {
         try {
             console.log('handleLogout should not see this')
@@ -80,6 +76,10 @@ const AuthProvider = ({children}) => {
             console.log('handleLogout catch -> '+ error)
         }
     }
+    
+    useEffect(() => {
+        isLoggedIn()
+    },[])
 
     // !----REGISTER LOGIC STARTS----!
 
