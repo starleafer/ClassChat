@@ -10,9 +10,13 @@ export default function Register({ navigation }) {
 
   const confirmRegister = () => {
     registerUser(regUsername, regPassword)
-    console.log(errormsg)
-    if (errormsg !== null) {
+    console.log('State error message '+errormsg)
+    if ( errormsg == null ) {
+      // console.log('reroute to Login')
       navigation.navigate('Login')
+    }
+    if(regPassword == '') {
+      return alert('Password is required.')
     }
   }
 
