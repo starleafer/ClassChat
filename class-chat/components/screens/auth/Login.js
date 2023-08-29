@@ -4,9 +4,9 @@ import { AuthContext } from '../../contexts/AuthContext'
 
 export default function Login({ navigation }) {
 
-  const {handleLogin} = useContext(AuthContext);
-  const [username, setUsername] = useState('testing53');
-  const [password, setPassword] = useState('123');
+  const {handleLogin, username, password, setUsername, setPassword} = useContext(AuthContext);
+  // const [username, setUsername] = useState('testing53');
+  // const [password, setPassword] = useState('123');
 
   return (
     <View style={styles.container}>

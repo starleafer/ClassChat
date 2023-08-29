@@ -9,6 +9,8 @@ const AuthProvider = ({children}) => {
     
     const [errormsg, setErrorMsg] = useState(null);
     const [accessToken, setAccessToken] = useState('');
+    const [username, setUsername] = useState('testing53');
+    const [password, setPassword] = useState('123');
     
     const handleLogin = async (username, password) => {
         try {
@@ -119,7 +121,18 @@ const AuthProvider = ({children}) => {
 
 
     return (
-        <AuthContext.Provider value={{accessToken, handleLogin, handleLogout, registerUser, errormsg, isLoggedIn}}>
+        <AuthContext.Provider value={{
+            accessToken, 
+            handleLogin, 
+            handleLogout, 
+            registerUser, 
+            errormsg, 
+            isLoggedIn,
+            username,
+            password,
+            setUsername,
+            setPassword
+        }}>
           {children}
         </AuthContext.Provider>
       )
