@@ -5,11 +5,11 @@ import { FlatList, TextInput } from "react-native-gesture-handler";
 
 const Chat = () => {
   const { accessToken, isLoggedIn, username } = useContext(AuthContext);
-  const [messages, setMessages] = useState([]);
+  const [messages, setMessages] = useState([{}]);
   const [textMsg, setTextMsg] = useState("");
 
   const fetchAllMessages = async () => {
-    console.log(username)
+    // console.log(username)
     try {
       const response = await fetch(
         "https://chat-api-with-auth.up.railway.app/messages",
@@ -59,6 +59,26 @@ const Chat = () => {
     fetchAllMessages();
   }, []);
 
+  // console.log(messages.data[1].user.username)
+  // superHeroes["members"][1]["powers"][2];
+
+
+  // const rottenTomatoesRating = details.Ratings.find(rating => rating.Source === 'Rotten Tomatoes');
+  // if (rottenTomatoesRating) {
+  //   rottenTomatoesValue = rottenTomatoesRating.Value;
+  // }
+
+  // const findUsername = messages.data.user.find(name => name === 'username');
+  //   if (findUsername) {
+  //     foundName = findUsername.value;
+  //   }
+
+  // console.log(messages.data[2].user.username)
+
+  // const usernames = messages.data.map(names => names.user.username)
+  // console.log(usernames)
+
+
   return (
     <View style={styles.container}>
       {/* {messages.status == 200 
@@ -69,19 +89,28 @@ const Chat = () => {
         }) 
        : null} */}
 
-      <FlatList
+      {/* <FlatList
+        inverted
         data={messages.data}
         renderItem={({ item }) => (
           <View style={styles.textContainer}>
-            {username == "testing53" 
-              ? <Text style={styles.userMessage}>{item.date}{item.content}</Text>
-              : <Text style={styles.message}>{item.date}{item.content}</Text>
+           { messages.data !== undefined
+              ?  "testing53" == "testing53" 
+                  ? <Text style={styles.userMessage}>{item.content}</Text>
+                  : <Text style={styles.message}>{item.date}{item.content}</Text>             
+              : <Text>Loading</Text>
             }
-            {/* <Text style={styles.userMessage}>{item.date}{item.content}</Text> */}
-             
+            <Text style={styles.userMessage}>{item.date}{item.content}</Text>
           </View>
         )}
-        keyExtractor={item => item._id} />
+        keyExtractor={item => item._id} /> */}
+        <FlatList 
+          inverted
+          data={Object.entries(messages.data)}
+          keyExtractor={(item, index) => index}
+          renderItem={({item}) => {
+          }}
+        />
         
 
       <TextInput style={styles.msgInput} value={textMsg} onChangeText={(msg) =>setTextMsg(msg)}></TextInput>
