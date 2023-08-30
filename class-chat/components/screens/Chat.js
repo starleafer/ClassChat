@@ -6,10 +6,11 @@ import { FlatList, TextInput, TouchableOpacity } from "react-native-gesture-hand
 const Chat = () => {
   const { accessToken, isLoggedIn, username } = useContext(AuthContext);
   const [messages, setMessages] = useState([{}]);
+  const [reversedData, setReversedData] = useState([]);
   const [textMsg, setTextMsg] = useState("");
 
+
   const fetchAllMessages = async () => {
-    // console.log(username)
     try {
       const response = await fetch(
         "https://chat-api-with-auth.up.railway.app/messages",
@@ -23,14 +24,16 @@ const Chat = () => {
       );
 
       const msgLog = await response.json();
-      // console.log("MESSAGES ->" + msgLog.data[0].content);
+      // console.log("MESSAGES ->" + msgLog.data);
       setMessages(msgLog);
+      setReversedData(msgLog.data.reverse())
     } catch (error) {
       console.log("fetchAllMessages catch ->" + error);
     }
   };
+
+  // DELETE
   const deleteMessage = async (messageId) => {
-    // console.log(username)
     try {
       const response = await fetch(
         "https://chat-api-with-auth.up.railway.app/messages/"+ messageId,
@@ -79,7 +82,7 @@ const Chat = () => {
     <View style={styles.container}>
       <FlatList
         inverted
-        data={messages.data.reverse()}
+        data={reversedData}
         keyExtractor={(item, index) => index}
         renderItem={({ item }) => (
           <View style={styles.textContainer}>
@@ -137,11 +140,24 @@ const styles = StyleSheet.create({
   },
   message: {
     flexDirection: "column",
-    color: "green",
+    color: "#fff",
     width: 250,
+    padding: 10,
+    marginHorizontal: 3,
+    borderRadius: 15,
+    backgroundColor: 'gray',
+  },
+  userMessage: {
+    color: "#fff",
+    backgroundColor: "tomato",
+    textAlign: "right",
+    borderRadius: 15,
     paddingHorizontal: 5,
     marginHorizontal: 3,
-    borderWidth: 1,
+    padding: 10,
+    width: 250,
+    justifyContent: 'flex-end'
+    
   },
   msgInput: {
     borderWidth: 1,
@@ -149,11 +165,5 @@ const styles = StyleSheet.create({
     width: "100%",
     marginVertical: 10,
     padding: 5,
-  },
-  userMessage: {
-    color: "red",
-    textAlign: "right",
-    paddingHorizontal: 5,
-    marginHorizontal: 3,
   },
 });

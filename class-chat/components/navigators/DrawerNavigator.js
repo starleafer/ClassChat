@@ -4,6 +4,7 @@ import { createDrawerNavigator } from '@react-navigation/drawer';
 import React from 'react'
 import Chat from '../screens/Chat';
 import Profile from '../screens/Profile';
+import ProfileNavigator from './ProfileNavigator';
 
 const Drawer = createDrawerNavigator();
 
@@ -17,7 +18,7 @@ const DrawerNavigator = () => {
         />
         <Drawer.Screen 
             name="Profile"
-            component={Profile}
+            component={ProfileNavigator}
         />
     </Drawer.Navigator>
   )
