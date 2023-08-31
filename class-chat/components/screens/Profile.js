@@ -1,4 +1,4 @@
-import { Button, StyleSheet, Text, View } from 'react-native'
+import { Button, Image, StyleSheet, Text, View } from 'react-native'
 import React, { useContext, useEffect, useState } from 'react'
 import { AuthContext } from '../contexts/AuthContext';
 import { TextInput, TouchableOpacity } from 'react-native-gesture-handler';
@@ -6,11 +6,12 @@ import { TextInput, TouchableOpacity } from 'react-native-gesture-handler';
 
 const Profile = ({navigation}) => {
 
-  const {handleLogout, accessToken} = useContext(AuthContext);
-  const [fetchedUser, setFetchedUser] = useState({
-    firstName: "",
-    lastName: ""
-  })
+  const {handleLogout, accessToken, fetchedUser, setFetchedUser} = useContext(AuthContext);
+  // const [fetchedUser, setFetchedUser] = useState({
+  //   firstName: "",
+  //   lastName: "",
+  //   image: "",
+  // })
 
   const getUser = async () => {
     try {
@@ -87,6 +88,17 @@ const Profile = ({navigation}) => {
   
   return (
     <View style={styles.container}>
+      <View style={styles.imgContainer}>
+        {/* <Image 
+        source={require(fetchedUser.image)}
+        style={{width: 40, height: 40}}
+        /> */}
+        {/* 
+        '../../assets/favicon.png'
+        (fetchedUser.image ? fetchedUser.image : '.') 
+        
+        */}
+      </View>
       <View style={styles.contents}>
 
         <TextInput placeholder='Enter first name..' value={fetchedUser.firstName} onChangeText={(name) => setFetchedUser({firstName: name})}></TextInput>
@@ -108,6 +120,11 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     height: "100%",
     backgroundColor: 'wheat',
+  },
+  imgContainer: {
+    borderWidth: 1,
+    height: 100,
+    width:100,
   },
   contents: {
     height: 400,

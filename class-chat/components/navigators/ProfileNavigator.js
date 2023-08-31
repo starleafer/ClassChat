@@ -18,7 +18,9 @@ const ProfileNavigator = () => {
         name="Profile page" 
         component={Profile}
         options={{headerShown: false}} />
-      <Tab.Screen name="Camera" component={CameraView} />
+      <Tab.Screen 
+        name="Camera" 
+        component={CameraView} />
     </Tab.Navigator> 
   )
 }
