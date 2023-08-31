@@ -4,7 +4,7 @@ import { AuthContext } from '../../contexts/AuthContext'
 import { useFonts } from 'expo-font';
 import * as SplashScreen from 'expo-splash-screen';
 
-SplashScreen.preventAutoHideAsync();
+// SplashScreen.preventAutoHideAsync();
 
 
 
@@ -14,24 +14,24 @@ export default function Login({ navigation }) {
   // const [username, setUsername] = useState('testing53');
   // const [password, setPassword] = useState('123');
   
-  const [fontsLoaded] = useFonts({
-    'Pacifico': require('../../../assets/fonts/Pacifico-Regular.ttf'),
-  });
+  // const [fontsLoaded] = useFonts({
+  //   'Pacifico': require('../../../assets/fonts/Pacifico-Regular.ttf'),
+  // });
 
-  const onLayoutRootView = useCallback(async () => {
-    if (fontsLoaded) {
-      await SplashScreen.hideAsync();
-    }
-  }, [fontsLoaded]);
+  // const onLayoutRootView = useCallback(async () => {
+  //   if (fontsLoaded) {
+  //     await SplashScreen.hideAsync();
+  //   }
+  // }, [fontsLoaded]);
 
-  if (!fontsLoaded) {
-    return null;
-  }
+  // if (!fontsLoaded) {
+  //   return null;
+  // }
 
-  console.log('fontsLoaded:', fontsLoaded);
+  // console.log('fontsLoaded:', fontsLoaded);
 
   return (
-    <View style={styles.container} onLayout={onLayoutRootView}>
+    <View style={styles.container}>
       <View style={styles.headerContainer}>
         <Text style={[styles.header, {right: 10}]}>Class</Text>
         <Text style={[styles.header, {top: -35, left: 20, }]}>Chat</Text>
@@ -89,7 +89,7 @@ const styles = StyleSheet.create({
       width: 170,
       color: '#F7ECE1',
       fontSize: 65,
-      fontFamily: 'Pacifico',
+      // fontFamily: 'Pacifico',
     },
     inputs: {
       height: 50,

@@ -3,6 +3,7 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import React from 'react'
 import Profile from '../screens/Profile';
 import Chat from '../screens/Chat';
+import CameraView from '../screens/CameraView';
 
 
 const Tab = createBottomTabNavigator();
@@ -17,7 +18,7 @@ const ProfileNavigator = () => {
         name="Profile page" 
         component={Profile}
         options={{headerShown: false}} />
-      {/* <Tab.Screen name="Chat" component={Chat} /> */}
+      <Tab.Screen name="Camera" component={CameraView} />
     </Tab.Navigator> 
   )
 }

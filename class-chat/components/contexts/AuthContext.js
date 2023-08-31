@@ -9,8 +9,8 @@ const AuthProvider = ({children}) => {
     
     const [errormsg, setErrorMsg] = useState(null);
     const [accessToken, setAccessToken] = useState('');
-    const [username, setUsername] = useState('testing53');
-    const [password, setPassword] = useState('123');
+    const [username, setUsername] = useState('Emil&Tobias');
+    const [password, setPassword] = useState('CrazyHorse');
     
     const handleLogin = async (username, password) => {
         try {
@@ -27,17 +27,21 @@ const AuthProvider = ({children}) => {
                         password: password
                     })
                 });
+
                 
                 const authorization = await response.json();
-                await AsyncStorage.setItem('accessToken', authorization.data.accessToken)
-                setAccessToken(authorization.data.accessToken)
-                
+
                 if(authorization.status == 401) {
                     if(authorization.message === 'Incorrect user information') {
                         return alert(authorization.message)
+                        // Ersätt med ett state för error meddelanden
                     }
                     else return authorization.message
                 }
+
+                await AsyncStorage.setItem('accessToken', authorization.data.accessToken)
+                setAccessToken(authorization.data.accessToken)
+                
                 
 
         } catch (error) {
@@ -49,28 +53,13 @@ const AuthProvider = ({children}) => {
         try {
             const token = await AsyncStorage.getItem('accessToken')
             setAccessToken(token)
-            console.log(accessToken)
         } catch (error) {
             console.log(error)
         }
     }
     
-    
-    // const handleLogin = async (username, password) => {
-    //     try {
-    //         const token = fetchAuthToken(username, password)
-    //         setAccessToken(token)
-    //         console.log('handleLogin accessToken --> '+accessToken)
-            
-            
-    //     } catch (error) {
-    //         console.log('handleLogin catch -> '+error)
-    //     }
-    // }
-    
     const handleLogout = async () => {
         try {
-            console.log('handleLogout should not see this')
             await AsyncStorage.removeItem('accessToken')
             setAccessToken(null)
             
