@@ -2,6 +2,7 @@ import { Button, Image, StyleSheet, Text, View } from 'react-native'
 import React, { useContext, useEffect, useState } from 'react'
 import { AuthContext } from '../contexts/AuthContext';
 import { TextInput, TouchableOpacity } from 'react-native-gesture-handler';
+import { API_ROOT_URL } from '../constants/General';
 
 
 const Profile = ({navigation}) => {
@@ -15,7 +16,7 @@ const Profile = ({navigation}) => {
 
   const getUser = async () => {
     try {
-      const response = await fetch('https://chat-api-with-auth.up.railway.app/users', { 
+      const response = await fetch(API_ROOT_URL+'users', { 
         method: "GET",
         headers: {
           "Content-Type": "application/json",
@@ -40,7 +41,7 @@ const Profile = ({navigation}) => {
 
   const updateUser = async () => {
     try {
-      const response = await fetch('https://chat-api-with-auth.up.railway.app/users', { 
+      const response = await fetch(API_ROOT_URL+'users', { 
         method: "PATCH",
         headers: {
           "Content-Type": "application/json",
@@ -64,7 +65,7 @@ const Profile = ({navigation}) => {
 
   const deleteUser = async () => {
     try {
-      const response = await fetch('https://chat-api-with-auth.up.railway.app/users', { 
+      const response = await fetch(API_ROOT_URL + 'users', { 
         method: "DELETE",
         headers: {
           "Content-Type": "application/json",
@@ -83,6 +84,7 @@ const Profile = ({navigation}) => {
   }
   
   useEffect(() => {
+    console.log(fetchedUser.image)
     getUser();
   }, []);
   
