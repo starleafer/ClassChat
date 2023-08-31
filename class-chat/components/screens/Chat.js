@@ -2,6 +2,7 @@ import { Button, StyleSheet, Text, View } from "react-native";
 import React, { useContext, useState, useEffect } from "react";
 import { AuthContext } from "../contexts/AuthContext";
 import { FlatList, TextInput, TouchableOpacity } from "react-native-gesture-handler";
+import Ionicons from '@expo/vector-icons/Ionicons';
 
 const Chat = () => {
   const { accessToken, isLoggedIn, username } = useContext(AuthContext);
@@ -113,12 +114,20 @@ const Chat = () => {
           </View>
         )}
       />
-      <TextInput
-        style={styles.msgInput}
-        value={textMsg}
-        onChangeText={(msg) => setTextMsg(msg)}
-      ></TextInput>
-      <Button title="Skicka" onPress={() => createMessage()} />
+     <View style={styles.inputsContainer}> 
+        <TextInput
+          style={styles.msgInput}
+          value={textMsg}
+          onChangeText={(msg) => setTextMsg(msg)}
+        ></TextInput>
+        <TouchableOpacity
+          style={styles.icon}
+          onPress={() => createMessage()}
+        >
+          <Ionicons name="send" size={30} color="#F7ECE1" /> 
+        </TouchableOpacity>
+      </View> 
+      {/* <Button title="Skicka" onPress={() => createMessage()} /> */}
     </View>
   );
 };
@@ -130,7 +139,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     // alignItems: "center",
-    backgroundColor: "skyblue",
+    backgroundColor: "#242038",
   },
   textContainer: {
     marginVertical: 10,
@@ -159,11 +168,30 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-end'
     
   },
+  inputsContainer: {
+    flexDirection: 'row',
+  },
   msgInput: {
     borderWidth: 1,
-    backgroundColor: "#fff",
-    width: "100%",
+    backgroundColor: "transparent",
+    color: '#F7ECE1',
+    borderColor: '#F7ECE1',
+    borderRadius: 10,
+    width: "80%",
+    height: 60,
     marginVertical: 10,
+    marginLeft: 10,
     padding: 5,
   },
+  icon: {
+    borderWidth: 1,
+    borderRadius: 50,
+    borderColor: '#F7ECE1',
+    width: 60,
+    height: 60,
+    marginLeft: 5,
+    marginTop: 10,
+    justifyContent: 'center',
+    alignItems: 'center'
+  }
 });
