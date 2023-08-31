@@ -11,6 +11,11 @@ const AuthProvider = ({children}) => {
     const [accessToken, setAccessToken] = useState('');
     const [username, setUsername] = useState('Emil&Tobias');
     const [password, setPassword] = useState('CrazyHorse');
+    const [fetchedUser, setFetchedUser] = useState({
+        firstName: "",
+        lastName: "",
+        image: "",
+      })
     
     const handleLogin = async (username, password) => {
         try {
@@ -120,7 +125,9 @@ const AuthProvider = ({children}) => {
             username,
             password,
             setUsername,
-            setPassword
+            setPassword,
+            fetchedUser,
+            setFetchedUser
         }}>
           {children}
         </AuthContext.Provider>

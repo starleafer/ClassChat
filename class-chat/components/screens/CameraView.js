@@ -1,9 +1,12 @@
 import { Camera, CameraType, FlashMode } from 'expo-camera';
-import { useEffect, useRef, useState } from 'react';
+import { useContext, useEffect, useRef, useState } from 'react';
 import { Button, Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import * as MediaLibrary from 'expo-media-library';
+import ImagePreview from './ImagePreview';
+import { AuthContext } from '../contexts/AuthContext';
 
-export default function CameraView() {
+export default function CameraView({navigation}) {
+    const {fetchedUser, setFetchedUser} = useContext(AuthContext)
     
     const [hasCameraPermission, setHasCameraPermission] = useState(null)
     const [hasMediaPermission, setHasMediaPermission] = useState(null)
@@ -41,7 +44,29 @@ export default function CameraView() {
   }
   const [picture, setPicture] = useState(null);
 
+  //Saving picture to profile
   const savePicture = async () => {
+      try {
+        const response = await fetch('https://chat-api-with-auth.up.railway.app/users', { 
+          method: "PATCH",
+          headers: {
+            "Content-Type": "application/json",
+            "Authorization": "Bearer " + accessToken
+          },
+          body: JSON.stringify({
+            image: picture.uri
+          }),
+
+        });
+  
+        const user = await response.json();
+        setFetchedUser({image:picture.uri})
+
+      } catch(error) {
+        console.log(error)
+      }
+ /////   
+
       try {
           const asset = await MediaLibrary.createAssetAsync(picture.uri)
           const album = await MediaLibrary.getAlbumAsync('Expo')
@@ -53,7 +78,8 @@ export default function CameraView() {
           }
 
           setPicture(null)
-
+          console.log(picture.uri)
+          navigation.navigate('Profile page');
       } catch (error) {
           console.log(error)
       }
@@ -68,17 +94,22 @@ export default function CameraView() {
     if(picture !== null) {
         return (
             // Replace with ImagePreview component
-            <View style={styles.container}>
-                <Image source={{uri: picture.uri}} style={{flex: 1}} />
-            <View>
-                <TouchableOpacity onPress={() => {setPicture(null)}}>
-                    <Text>NEW IMAGE ICON GOES HERE</Text>
-                </TouchableOpacity>
-                <TouchableOpacity onPress={() => {savePicture()}}>
-                    <Text>SAVE IMAGE ICON GOES HERE</Text>
-                </TouchableOpacity>
-            </View>
-            </View>
+            <ImagePreview 
+              picture={picture}
+              setPicture={setPicture}
+              savePicture={savePicture}
+            />
+            // <View style={styles.container}>
+            //     <Image source={{uri: picture.uri}} style={{flex: 1}} />
+            // <View>
+            //     <TouchableOpacity onPress={() => {setPicture(null)}}>
+            //         <Text>NEW IMAGE ICON GOES HERE</Text>
+            //     </TouchableOpacity>
+            //     <TouchableOpacity onPress={() => {savePicture()}}>
+            //         <Text>SAVE IMAGE ICON GOES HERE</Text>
+            //     </TouchableOpacity>
+            // </View>
+            // </View>
         )
     } else {
         return (
