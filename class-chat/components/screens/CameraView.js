@@ -4,6 +4,7 @@ import { Button, Image, StyleSheet, Text, TouchableOpacity, View } from 'react-n
 import * as MediaLibrary from 'expo-media-library';
 import ImagePreview from './ImagePreview';
 import { AuthContext } from '../contexts/AuthContext';
+import { API_ROOT_URL } from '../constants/General';
 
 export default function CameraView({navigation}) {
     const {fetchedUser, setFetchedUser} = useContext(AuthContext)
@@ -47,7 +48,7 @@ export default function CameraView({navigation}) {
   //Saving picture to profile
   const savePicture = async () => {
       try {
-        const response = await fetch('https://chat-api-with-auth.up.railway.app/users', { 
+        const response = await fetch(API_ROOT_URL+'users', { 
           method: "PATCH",
           headers: {
             "Content-Type": "application/json",
@@ -77,8 +78,9 @@ export default function CameraView({navigation}) {
               await MediaLibrary.addAssetsToAlbumAsync(asset, album.id, false ) 
           }
 
-          setPicture(null)
           console.log(picture.uri)
+          setFetchedUser({image:picture.uri})
+          setPicture(null)
           navigation.navigate('Profile page');
       } catch (error) {
           console.log(error)

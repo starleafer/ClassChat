@@ -21,7 +21,7 @@ const AuthProvider = ({children}) => {
         try {
             // console.log(username + password)
             
-            const response = await fetch("https://chat-api-with-auth.up.railway.app/auth/token", {
+            const response = await fetch(API_ROOT_URL+"auth/token", {
                 method: 'POST',
                 headers: {
                     "Content-Type": "application/json",
@@ -81,7 +81,7 @@ const AuthProvider = ({children}) => {
 
     const registerUser = async (regUsername, regPassword, navigation) => {
         try {
-            const response = await fetch("https://chat-api-with-auth.up.railway.app/auth/register", {
+            const response = await fetch(API_ROOT_URL+"auth/register", {
                 method: 'POST',
                 headers: {
                     "Content-Type": "application/json",
