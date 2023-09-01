@@ -104,8 +104,8 @@ const Chat = () => {
                       delayLongPress={2000}
                     >
                       <Image
-                        style={{ flex: 1, width: 100, height: 100 }}
-                        source={{ uri: fetchedUser.image }}
+                        // style={{ flex: 1, width: 100, height: 100 }}
+                        // source={{ uri: fetchedUser.image }}
                       />
                       <Text style={styles.userMessage}>
                         {item.content}
@@ -120,8 +120,8 @@ const Chat = () => {
                       delayLongPress={2000}
                     >
                       <Image
-                        style={{ flex: 1, width: 100, height: 100 }}
-                        source={{ uri: fetchedUser.image }}
+                        // style={{ flex: 1, width: 100, height: 100 }}
+                        // source={{ uri: fetchedUser.image }}
                       />
                       <Text style={styles.userMessage}>
                         {item.content}
@@ -130,23 +130,25 @@ const Chat = () => {
                     </TouchableOpacity>
                   )
                 ) : item.user.image !== undefined ? (
-                  <>
+                  <View>
                     <Image 
                     style={{ flex: 1, width: 20, height: 20, backgroundColor: 'blue' }}
-                    source={{ uri: item.user.image }}/><Text style={styles.message}>
-                      {item.user.username}
-                      {item.date}
-                      {item.content}
-                    </Text>
-                  </>
-                ) : (
-                  <>
+                    // source={{ uri: item.user.image }}
+                    />
                     <Text style={styles.message}>
                       {item.user.username}
                       {item.date}
                       {item.content}
                     </Text>
-                  </>
+                  </View>
+                ) : (
+                  <View>
+                    <Text style={styles.message}>
+                      {item.user.username}
+                      {item.date}
+                      {item.content}
+                    </Text>
+                  </View>
                 )
               ) : (
                 <Text style={styles.message}>
@@ -206,9 +208,10 @@ const styles = StyleSheet.create({
     borderRadius: 15,
     paddingHorizontal: 5,
     marginHorizontal: 3,
+    marginLeft: "38%",
     padding: 10,
     width: 250,
-    justifyContent: "flex-end",
+    // justifyContent: "flex-end",
   },
   inputsContainer: {
     flexDirection: "row",
