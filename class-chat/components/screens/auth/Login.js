@@ -1,4 +1,4 @@
-import React, { useCallback, useContext, useState } from 'react'
+import React, { useCallback, useContext, useEffect, useState } from 'react'
 import { View, Text, StyleSheet, TextInput, Button, TouchableOpacity } from 'react-native'
 import { AuthContext } from '../../contexts/AuthContext'
 import { useFonts } from 'expo-font';
@@ -10,7 +10,7 @@ import * as SplashScreen from 'expo-splash-screen';
 
 export default function Login({ navigation }) {
   
-  const {handleLogin, username, password, setUsername, setPassword} = useContext(AuthContext);
+  const {handleLogin, username, password, setUsername, setPassword, apiMessage, setApiMessage} = useContext(AuthContext);
   // const [username, setUsername] = useState('testing53');
   // const [password, setPassword] = useState('123');
   
@@ -29,6 +29,12 @@ export default function Login({ navigation }) {
   // }
 
   // console.log('fontsLoaded:', fontsLoaded);
+  console.log(apiMessage)
+
+  // useEffect(() => {
+  //   if(apiMessage === 'Username already exists' || apiMessage === 'Must enter a username' ||  apiMessage === 'Password required') 
+  //     setApiMessage(null)
+  // },[])
 
   return (
     <View style={styles.container}>
@@ -47,6 +53,12 @@ export default function Login({ navigation }) {
         onChangeText={password => setPassword(password)}>
       </TextInput>
       <View style={styles.btnContainer}>
+      {apiMessage !== "Successfully registered" 
+        ? <Text style={{color: 'red', width: 200, fontSize: 16}}>{apiMessage}</Text> 
+        : null}
+      {apiMessage === "Successfully registered"
+          ?  <Text style={{color: 'green', width: 200, fontSize: 16}}>{apiMessage }</Text> 
+          : null}
         <TouchableOpacity
           title="Login"
           style={[styles.buttons, styles.login]}
