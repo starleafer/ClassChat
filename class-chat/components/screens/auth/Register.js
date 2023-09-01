@@ -1,24 +1,34 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { StyleSheet, Text, TextInput, TouchableOpacity, View } from "react-native";
 import { AuthContext } from "../../contexts/AuthContext";
 
 
 export default function Register({ navigation }) {
-  const {registerUser, errormsg} = useContext(AuthContext)
+  const {registerUser, apiMessage , setApiMessage} = useContext(AuthContext)
   const [regUsername, setRegUsername] = useState('');
   const [regPassword, setRegPassword] = useState('');
 
   const confirmRegister = () => {
+    if(regUsername == '')
+     return setApiMessage('Must enter a username')
+    if(regPassword == '') 
+      return setApiMessage('Password required')
+    
+  
     registerUser(regUsername, regPassword)
-    console.log('State error message '+errormsg)
-    if ( errormsg == null ) {
+    console.log('State error message '+apiMessage )
+    
+    if ( apiMessage  === "Successfully registered" ) {
       // console.log('reroute to Login')
+      // setApiMessage('')
+      // alert('Registration successfull')
       navigation.navigate('Login')
     }
-    if(regPassword == '') {
-      return alert('Password is required.')
-    }
   }
+
+  useEffect(() => {
+    setApiMessage(null)
+  }, [])
 
   return (
     <View style={styles.container}>
@@ -36,9 +46,10 @@ export default function Register({ navigation }) {
           onChangeText={password => setRegPassword(password)}
         />
       </View>
-      <View style={styles.buttonContainer}>
-
+        {apiMessage !== "Successfully registered"
+          ?  <Text style={{color: 'red', width: 200, fontSize: 16}}>{apiMessage }</Text> : null}
         {/* Register button */}
+      <View style={styles.buttonContainer}>
         <TouchableOpacity 
           style={[styles.buttons, { borderColor: "green" }]}
           onPress={confirmRegister}

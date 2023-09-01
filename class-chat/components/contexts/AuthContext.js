@@ -7,7 +7,7 @@ export const AuthContext = createContext()
 
 const AuthProvider = ({children}) => {
     
-    const [errormsg, setErrorMsg] = useState(null);
+    const [apiMessage, setApiMessage] = useState(null);
     const [accessToken, setAccessToken] = useState('');
     const [username, setUsername] = useState('Emil&Tobias');
     const [password, setPassword] = useState('CrazyHorse');
@@ -38,12 +38,13 @@ const AuthProvider = ({children}) => {
 
                 if(authorization.status == 401) {
                     if(authorization.message === 'Incorrect user information') {
-                        return alert(authorization.message)
+                       return setApiMessage(authorization.message)
+                        // return alert(authorization.message)
                         // Ersätt med ett state för error meddelanden
                     }
                     else return authorization.message
                 }
-
+                setApiMessage("")
                 await AsyncStorage.setItem('accessToken', authorization.data.accessToken)
                 setAccessToken(authorization.data.accessToken)
                 
@@ -96,15 +97,21 @@ const AuthProvider = ({children}) => {
                 const registration = await response.json();
                 // console.log(registration)
 
+                if(registration.status == 200) {
+                    return setApiMessage(registration.message)
+                    //   navigatimilon.navigate('Login')
+                    
+                }
+
                 if(registration.status == 409 || registration.status == 500 ) {
                     if(registration.message === 'Username already exists') {
-                        setErrorMsg('Username already exists')
-                        return alert('Username already exists')
+                       return setApiMessage('Username already exists')
+                        // return alert('Username already exists')
                     } else if (registration.message === "User validation failed: username: Path `username` is required.") {
-                        setErrorMsg('Must enter a username')
-                        return alert('Must enter a username')
+                       return setApiMessage('Must enter a username')
+                        // return alert('Must enter a username')
                     }
-                    else return alert(registration.message)
+                    // else return alert(registration.message)
                 }
         } catch (error) {
             console.log('registerUser catch -> '+error)
@@ -120,7 +127,8 @@ const AuthProvider = ({children}) => {
             handleLogin, 
             handleLogout, 
             registerUser, 
-            errormsg, 
+            apiMessage, 
+            setApiMessage,
             isLoggedIn,
             username,
             password,
