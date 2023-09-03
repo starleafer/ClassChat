@@ -17,16 +17,10 @@ const AuthProvider = ({children}) => {
     });
     const [username, setUsername] = useState('Emil&Tobias');
     const [password, setPassword] = useState('CrazyHorse');
-    const [fetchedUser, setFetchedUser] = useState({
-        firstName: "",
-        lastName: "",
-        image: "",
-      })
+    
     
     const handleLogin = async (username, password) => {
         try {
-            // console.log(username + password)
-            
             const response = await fetch(API_ROOT_URL+"auth/token", {
                 method: 'POST',
                 headers: {
@@ -37,30 +31,26 @@ const AuthProvider = ({children}) => {
                         username: username,
                         password: password
                     })
-                });
+            });
 
                 
-                const authorization = await response.json();
+            const authorization = await response.json();
 
-                if(authorization.status == 401) {
-                    if(authorization.message === 'Incorrect user information') {
-                       return setApiMessage(authorization.message)
-                        // return alert(authorization.message)
-                        // Ersätt med ett state för error meddelanden
-                    }
-                    else return authorization.message
+            if(authorization.status == 401) {
+                if(authorization.message === 'Incorrect user information') {
+                    return setApiMessage(authorization.message)
                 }
-                setApiMessage("")
-                await AsyncStorage.setItem('accessToken', authorization.data.accessToken)
-                setAccessData({accessToken:authorization.data.accessToken})
-                setAccessData({userId:authorization.data._id})
-                setAccessData({userName:authorization.data.username})
-                if(authorization.data.firstname)
-                    setAccessData({firstName:authorization.data.firstname})
-                if(authorization.data.lastname)
-                    setAccessData({lastName:authorization.data.lastname})
-                
-                
+                else return authorization.message
+            }
+            setApiMessage("")
+            await AsyncStorage.setItem('accessToken', authorization.data.accessToken)
+
+            setAccessData({
+                ...accessData, 
+                accessToken:authorization.data.accessToken, 
+                userId:authorization.data._id, 
+                userName:authorization.data.username
+            })  
 
         } catch (error) {
             console.log('fetchAuthToken catch -> '+error)
@@ -70,7 +60,7 @@ const AuthProvider = ({children}) => {
     const isLoggedIn = async () => {
         try {
             const token = await AsyncStorage.getItem('accessToken')
-            setAccessData({accessToken:token})
+            setAccessData({...accessData, accessToken:token})
         } catch (error) {
             console.log(error)
         }
@@ -79,7 +69,14 @@ const AuthProvider = ({children}) => {
     const handleLogout = async () => {
         try {
             await AsyncStorage.removeItem('accessToken')
-            setAccessData({accessToken:null})
+            setAccessData({
+                ...accessData, 
+                accessToken:null, 
+                userId:null, 
+                userName:null, 
+                firstName: null, 
+                lastName: null
+            })
             
         } catch (error) {
             console.log('handleLogout catch -> '+ error)
@@ -118,10 +115,9 @@ const AuthProvider = ({children}) => {
                 if(registration.status == 409 || registration.status == 500 ) {
                     if(registration.message === 'Username already exists') {
                        return setApiMessage('Username already exists')
-                        // return alert('Username already exists')
+
                     } else if (registration.message === "User validation failed: username: Path `username` is required.") {
                        return setApiMessage('Must enter a username')
-                        // return alert('Must enter a username')
                     }
                     // else return alert(registration.message)
                 }
@@ -146,9 +142,7 @@ const AuthProvider = ({children}) => {
             username,
             password,
             setUsername,
-            setPassword,
-            fetchedUser,
-            setFetchedUser
+            setPassword
         }}>
           {children}
         </AuthContext.Provider>

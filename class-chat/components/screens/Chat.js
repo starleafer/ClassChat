@@ -17,7 +17,7 @@ import Ionicons from "@expo/vector-icons/Ionicons";
 import { API_ROOT_URL } from "../constants/General";
 
 const Chat = () => {
-  const { accessData, isLoggedIn, username, fetchedUser } =
+  const { accessData, isLoggedIn, username } =
     useContext(AuthContext);
   const [messages, setMessages] = useState([{}]);
   const [reversedData, setReversedData] = useState([]);
