@@ -8,7 +8,13 @@ export const AuthContext = createContext()
 const AuthProvider = ({children}) => {
     
     const [apiMessage, setApiMessage] = useState(null);
-    const [accessToken, setAccessToken] = useState('');
+    const [accessData, setAccessData] = useState({
+        accessToken: null,
+        userId: null,
+        userName:null,
+        firstName:null,
+        lastName:null,
+    });
     const [username, setUsername] = useState('Emil&Tobias');
     const [password, setPassword] = useState('CrazyHorse');
     const [fetchedUser, setFetchedUser] = useState({
@@ -46,7 +52,13 @@ const AuthProvider = ({children}) => {
                 }
                 setApiMessage("")
                 await AsyncStorage.setItem('accessToken', authorization.data.accessToken)
-                setAccessToken(authorization.data.accessToken)
+                setAccessData({accessToken:authorization.data.accessToken})
+                setAccessData({userId:authorization.data._id})
+                setAccessData({userName:authorization.data.username})
+                if(authorization.data.firstname)
+                    setAccessData({firstName:authorization.data.firstname})
+                if(authorization.data.lastname)
+                    setAccessData({lastName:authorization.data.lastname})
                 
                 
 
@@ -58,7 +70,7 @@ const AuthProvider = ({children}) => {
     const isLoggedIn = async () => {
         try {
             const token = await AsyncStorage.getItem('accessToken')
-            setAccessToken(token)
+            setAccessData({accessToken:token})
         } catch (error) {
             console.log(error)
         }
@@ -67,7 +79,7 @@ const AuthProvider = ({children}) => {
     const handleLogout = async () => {
         try {
             await AsyncStorage.removeItem('accessToken')
-            setAccessToken(null)
+            setAccessData({accessToken:null})
             
         } catch (error) {
             console.log('handleLogout catch -> '+ error)
@@ -123,7 +135,8 @@ const AuthProvider = ({children}) => {
 
     return (
         <AuthContext.Provider value={{
-            accessToken, 
+            accessData, 
+            setAccessData,
             handleLogin, 
             handleLogout, 
             registerUser, 

@@ -7,12 +7,7 @@ import { API_ROOT_URL } from '../constants/General';
 
 const Profile = ({navigation}) => {
 
-  const {handleLogout, accessToken, fetchedUser, setFetchedUser} = useContext(AuthContext);
-  // const [fetchedUser, setFetchedUser] = useState({
-  //   firstName: "",
-  //   lastName: "",
-  //   image: "",
-  // })
+  const {handleLogout, accessData, setAccessData, fetchedUser, setFetchedUser} = useContext(AuthContext);
 
   const getUser = async () => {
     try {
@@ -20,19 +15,21 @@ const Profile = ({navigation}) => {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
-          "Authorization": "Bearer " + accessToken
+          "Authorization": "Bearer " + accessData.accessToken
         },
       });
 
       const user = await response.json();
 
-      "firstname" in user.data && "lastname" in user.data
-        ? setFetchedUser({firstName: user.data.firstname, lastName: user.data.lastname})
-        : "firstname" in user.data || "lastname" in user.data
-          ? "firstname" in user.data
-            ? setFetchedUser({firstName: user.data.firstname})
-            : setFetchedUser({lastName:user.data.lastname})
-          : setFetchedUser({firstName: "", lastName: ""})
+      console.log(user)
+
+      // "firstname" in user.data && "lastname" in user.data
+      //   ? setFetchedUser({firstName: user.data.firstname, lastName: user.data.lastname})
+      //   : "firstname" in user.data || "lastname" in user.data
+      //     ? "firstname" in user.data
+      //       ? setFetchedUser({firstName: user.data.firstname})
+      //       : setFetchedUser({lastName:user.data.lastname})
+      //     : setFetchedUser({firstName: "", lastName: ""})
   
     } catch(error) {
       console.log(error)
@@ -45,18 +42,18 @@ const Profile = ({navigation}) => {
         method: "PATCH",
         headers: {
           "Content-Type": "application/json",
-          "Authorization": "Bearer " + accessToken
+          "Authorization": "Bearer " + accessData.accessToken
         },
         body: JSON.stringify({
-          firstname: fetchedUser.firstName,
-          lastname: fetchedUser.lastName,
+          firstname: accessData.firstName,
+          lastname: accessData.lastName,
         }),
 
       });
 
       const user = await response.json();
   
-      setFetchedUser(user.data)
+      setAccessData({firstName:user.data.firstname, lastName:user.data.lastname})
 
     } catch(error) {
       console.log(error)
@@ -69,7 +66,7 @@ const Profile = ({navigation}) => {
         method: "DELETE",
         headers: {
           "Content-Type": "application/json",
-          "Authorization": "Bearer " + accessToken
+          "Authorization": "Bearer " + accessData.accessToken
         },
 
       });
@@ -84,8 +81,9 @@ const Profile = ({navigation}) => {
   }
   
   useEffect(() => {
-    console.log(fetchedUser.image)
-    getUser();
+    // console.log(fetchedUser.image)
+    console.log(accessData.firstName)
+    // getUser();
   }, []);
   
   return (
@@ -103,8 +101,8 @@ const Profile = ({navigation}) => {
       </View>
       <View style={styles.contents}>
 
-        <TextInput placeholder='Enter first name..' value={fetchedUser.firstName} onChangeText={(name) => setFetchedUser({firstName: name})}></TextInput>
-        <TextInput placeholder='Enter last name..' value={fetchedUser.lastName} onChangeText={(name) => setFetchedUser({lastName: name})}></TextInput>
+        <TextInput placeholder='Enter first name..' value={accessData.firstName ? accessData.firstName : ""} onChangeText={(name) => setAccessData({firstName: name})}></TextInput>
+        <TextInput placeholder='Enter last name..' value={accessData.lastName ? accessData.lastName : ""} onChangeText={(name) => setAccessData({lastName: name})}></TextInput>
         
         <TouchableOpacity style={[styles.buttons]} title="Update user" onPress={() => {updateUser()}}><Text>Update</Text></TouchableOpacity>
         <Button title="Delete user" onPress={() => {deleteUser()}} />

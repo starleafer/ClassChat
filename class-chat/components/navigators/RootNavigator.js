@@ -11,7 +11,7 @@ const Stack = createNativeStackNavigator();
 
 const RootNavigator = () => {
 
-  const {accessToken, isLoggedIn} = useContext(AuthContext);
+  const {accessData, isLoggedIn} = useContext(AuthContext);
 
   // useEffect(() => {
   //   isLoggedIn();
@@ -28,7 +28,7 @@ const RootNavigator = () => {
     // </Stack.Navigator>
     <>
       {
-        accessToken !== null
+        accessData.accessToken !== null
           ? <DrawerNavigator />
           : <AuthNavigator />
       }
