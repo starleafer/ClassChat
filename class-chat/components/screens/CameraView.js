@@ -7,7 +7,7 @@ import { AuthContext } from '../contexts/AuthContext';
 import { API_ROOT_URL } from '../constants/General';
 
 export default function CameraView({navigation}) {
-    const {fetchedUser, setFetchedUser} = useContext(AuthContext)
+    const {accessData} = useContext(AuthContext)
     
     const [hasCameraPermission, setHasCameraPermission] = useState(null)
     const [hasMediaPermission, setHasMediaPermission] = useState(null)
@@ -52,7 +52,7 @@ export default function CameraView({navigation}) {
           method: "PATCH",
           headers: {
             "Content-Type": "application/json",
-            "Authorization": "Bearer " + accessToken
+            "Authorization": "Bearer " + accessData.accessToken
           },
           body: JSON.stringify({
             image: picture.uri
@@ -61,7 +61,7 @@ export default function CameraView({navigation}) {
         });
   
         const user = await response.json();
-        setFetchedUser({image:picture.uri})
+        // setFetchedUser({image:picture.uri})
 
       } catch(error) {
         console.log(error)
@@ -79,7 +79,7 @@ export default function CameraView({navigation}) {
           }
 
           console.log(picture.uri)
-          setFetchedUser({image:picture.uri})
+          // setFetchedUser({image:picture.uri})
           setPicture(null)
           navigation.navigate('Profile page');
       } catch (error) {

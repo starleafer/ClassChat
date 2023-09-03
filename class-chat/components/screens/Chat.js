@@ -17,7 +17,7 @@ import Ionicons from "@expo/vector-icons/Ionicons";
 import { API_ROOT_URL } from "../constants/General";
 
 const Chat = () => {
-  const { accessToken, isLoggedIn, username, fetchedUser } =
+  const { accessData, isLoggedIn, username } =
     useContext(AuthContext);
   const [messages, setMessages] = useState([{}]);
   const [reversedData, setReversedData] = useState([]);
@@ -29,7 +29,7 @@ const Chat = () => {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
-          Authorization: "Bearer " + accessToken,
+          Authorization: "Bearer " + accessData.accessToken,
         },
       });
 
@@ -49,7 +49,7 @@ const Chat = () => {
         method: "DELETE",
         headers: {
           "Content-Type": "application/json",
-          Authorization: "Bearer " + accessToken,
+          Authorization: "Bearer " + accessData.accessToken,
         },
       });
 
@@ -66,7 +66,7 @@ const Chat = () => {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          Authorization: "Bearer " + accessToken,
+          Authorization: "Bearer " + accessData.accessToken,
         },
         body: JSON.stringify({
           content: textMsg,
