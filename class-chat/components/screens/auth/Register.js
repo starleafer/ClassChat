@@ -8,27 +8,25 @@ export default function Register({ navigation }) {
   const [regUsername, setRegUsername] = useState('');
   const [regPassword, setRegPassword] = useState('');
 
-  const confirmRegister = () => {
+  const confirmRegister = async () => {
     if(regUsername == '')
      return setApiMessage('Must enter a username')
     if(regPassword == '') 
       return setApiMessage('Password required')
     
   
-    registerUser(regUsername, regPassword)
-    console.log('State error message '+apiMessage )
+    const regSuccess = await registerUser(regUsername, regPassword)
+    console.log(apiMessage)
     
-    if ( apiMessage  === "Successfully registered" ) {
-      // console.log('reroute to Login')
-      // setApiMessage('')
-      // alert('Registration successfull')
+    if (regSuccess) {
       navigation.navigate('Login')
     }
   }
 
-  useEffect(() => {
-    setApiMessage(null)
-  }, [])
+  const Back = () => {
+    navigation.navigate('Login')
+    setApiMessage("")
+  }
 
   return (
     <View style={styles.container}>
@@ -60,7 +58,7 @@ export default function Register({ navigation }) {
         {/* Back button */}
         <TouchableOpacity 
           style={styles.buttons} 
-          onPress={() => navigation.navigate('Login')}
+          onPress={Back}
         >
           <Text >&lt; Back to Login page</Text>
         </TouchableOpacity>
