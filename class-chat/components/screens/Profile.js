@@ -7,7 +7,7 @@ import { API_ROOT_URL } from '../constants/General';
 
 const Profile = ({navigation}) => {
 
-  const {handleLogout, accessData } = useContext(AuthContext);
+  const {handleLogout, accessData, image } = useContext(AuthContext);
 
   const [firstName, setFirstName] = useState("")
   const [lastName, setLastName] = useState("")
@@ -86,15 +86,11 @@ const Profile = ({navigation}) => {
   return (
     <View style={styles.container}>
       <View style={styles.imgContainer}>
-        {/* <Image 
-        source={require(fetchedUser.image)}
-        style={{width: 40, height: 40}}
-        /> */}
-        {/* 
-        '../../assets/favicon.png'
-        (fetchedUser.image ? fetchedUser.image : '.') 
-        
-        */}
+        <Image 
+        source={{uri: image}}
+        style={{width: 100, height: 100}}
+        />
+    
       </View>
       <View style={styles.contents}>
 
@@ -102,7 +98,7 @@ const Profile = ({navigation}) => {
         <TextInput placeholder='Enter last name..' value={lastName ? lastName : ""} onChangeText={(name) => setLastName(name)}></TextInput>
         
         <TouchableOpacity style={[styles.buttons]} title="Update user" onPress={() => {updateUser()}}><Text>Update</Text></TouchableOpacity>
-        <Button title="Delete user" onPress={() => {deleteUser()}} />
+        {/* <Button title="Delete user" onPress={() => {deleteUser()}} /> */}
         <Button title="Logout user" onPress={() => {handleLogout()}} />
       </View>
     </View>

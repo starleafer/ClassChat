@@ -11,12 +11,12 @@ const AuthProvider = ({children}) => {
     const [accessData, setAccessData] = useState({
         accessToken: null,
         userId: null,
-        userName:null,
-        firstName:null,
-        lastName:null,
+        userName: null,
     });
-    const [username, setUsername] = useState('Emil&Tobias');
-    const [password, setPassword] = useState('CrazyHorse');
+    const [username, setUsername] = useState('EmilTobias');
+    const [password, setPassword] = useState('1234');
+    // const [image, setImage] = useState('https://img.freepik.com/free-photo/3d-rendering-emotions_23-2149081943.jpg?w=900&t=st=1693827529~exp=1693828129~hmac=c0d9113e4276dfba35e19475e250d4a8059cb02a0f6647add1328b6609d2e879');
+    const [image, setImage] = useState(null);
     
     
     const handleLogin = async (username, password) => {
@@ -73,9 +73,7 @@ const AuthProvider = ({children}) => {
                 ...accessData, 
                 accessToken:null, 
                 userId:null, 
-                userName:null, 
-                firstName: null, 
-                lastName: null
+                userName:null,
             })
             
         } catch (error) {
@@ -148,6 +146,8 @@ const AuthProvider = ({children}) => {
             password,
             setUsername,
             setPassword,
+            image,
+            setImage
         }}>
           {children}
         </AuthContext.Provider>

@@ -10,10 +10,10 @@ const ImagePreview = ({picture, setPicture, savePicture}) => {
                 <Image source={{uri: picture.uri}} style={{flex: 1}} />
             <View>
                 <TouchableOpacity onPress={() => {setPicture(null)}}>
-                    <Text>(DELETE!) NEW IMAGE ICON GOES HERE</Text>
+                    <Text>DELETE IMAGE</Text>
                 </TouchableOpacity>
                 <TouchableOpacity onPress={() => {savePicture()}}>
-                    <Text>SAVE IMAGE ICON GOES HERE</Text>
+                    <Text>SAVE IMAGE</Text>
                 </TouchableOpacity>
             </View>
             </View>
