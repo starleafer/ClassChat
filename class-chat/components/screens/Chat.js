@@ -17,7 +17,7 @@ import Ionicons from "@expo/vector-icons/Ionicons";
 import { API_ROOT_URL } from "../constants/General";
 
 const Chat = () => {
-  const { accessData, isLoggedIn, username } =
+  const { accessData, isLoggedIn, username, image } =
     useContext(AuthContext);
   const [messages, setMessages] = useState([{}]);
   const [reversedData, setReversedData] = useState([]);
@@ -103,9 +103,9 @@ const Chat = () => {
                       }}
                       delayLongPress={2000}
                     >
-                      <Image
-                        // style={{ flex: 1, width: 100, height: 100 }}
-                        // source={{ uri: fetchedUser.image }}
+                      <Image 
+                          source={{uri: image}}
+                          style={{width: 100, height: 100}}
                       />
                       <Text style={styles.userMessage}>
                         {item.content}
@@ -120,8 +120,8 @@ const Chat = () => {
                       delayLongPress={2000}
                     >
                       <Image
-                        // style={{ flex: 1, width: 100, height: 100 }}
-                        // source={{ uri: fetchedUser.image }}
+                        source={{uri: image}}
+                        style={{width: 100, height: 100}}
                       />
                       <Text style={styles.userMessage}>
                         {item.content}
@@ -132,7 +132,7 @@ const Chat = () => {
                 ) : item.user.image !== undefined ? (
                   <View>
                     <Image 
-                    style={{ flex: 1, width: 20, height: 20, backgroundColor: 'blue' }}
+                    style={{ flex: 1, width: 10, height: 10, backgroundColor: 'blue' }}
                     // source={{ uri: item.user.image }}
                     />
                     <Text style={styles.message}>

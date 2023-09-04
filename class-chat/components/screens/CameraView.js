@@ -7,7 +7,7 @@ import { AuthContext } from '../contexts/AuthContext';
 import { API_ROOT_URL } from '../constants/General';
 
 export default function CameraView({navigation}) {
-    const {accessData} = useContext(AuthContext)
+    const {accessData, image, setImage} = useContext(AuthContext)
     
     const [hasCameraPermission, setHasCameraPermission] = useState(null)
     const [hasMediaPermission, setHasMediaPermission] = useState(null)
@@ -61,12 +61,12 @@ export default function CameraView({navigation}) {
         });
   
         const user = await response.json();
-        // setFetchedUser({image:picture.uri})
+        console.log(user)
+        setImage(picture.uri)
 
       } catch(error) {
         console.log(error)
       }
- /////   
 
       try {
           const asset = await MediaLibrary.createAssetAsync(picture.uri)
