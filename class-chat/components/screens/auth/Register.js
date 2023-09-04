@@ -8,17 +8,17 @@ export default function Register({ navigation }) {
   const [regUsername, setRegUsername] = useState('');
   const [regPassword, setRegPassword] = useState('');
 
-  const confirmRegister = () => {
+  const confirmRegister = async () => {
     if(regUsername == '')
      return setApiMessage('Must enter a username')
     if(regPassword == '') 
       return setApiMessage('Password required')
     
   
-    registerUser(regUsername, regPassword)
-    console.log('State error message '+apiMessage )
+    const regSuccess = await registerUser(regUsername, regPassword)
+    console.log(apiMessage)
     
-    if ( apiMessage  === "Successfully registered" ) {
+    if (regSuccess) {
       navigation.navigate('Login')
     }
   }
@@ -27,10 +27,6 @@ export default function Register({ navigation }) {
     navigation.navigate('Login')
     setApiMessage("")
   }
-
-  useEffect(() => {
-    setApiMessage(null)
-  }, [])
 
   return (
     <View style={styles.container}>

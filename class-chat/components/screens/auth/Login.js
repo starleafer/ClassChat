@@ -53,10 +53,10 @@ export default function Login({ navigation }) {
       </TextInput>
       <View style={styles.btnContainer}>
       {apiMessage !== "Successfully registered" 
-        ? <Text style={{color: 'red', width: 200, fontSize: 16}}>{apiMessage}</Text> 
+        ? <Text style={{color: 'red', width: 210, fontSize: 16}}>{apiMessage}</Text> 
         : null}
       {apiMessage === "Successfully registered"
-          ?  <Text style={{color: 'green', width: 200, fontSize: 16}}>{apiMessage }</Text> 
+          ?  <Text style={{color: 'lightgreen', width: 200, fontSize: 16}}>{apiMessage }</Text> 
           : null}
         <TouchableOpacity
           title="Login"
