@@ -1,80 +1,61 @@
 import React, { useCallback, useContext, useEffect, useState } from 'react'
-import { View, Text, StyleSheet, TextInput, Button, TouchableOpacity } from 'react-native'
+import { View, Text, StyleSheet, TextInput, Button, TouchableOpacity, ScrollView } from 'react-native'
 import { AuthContext } from '../../contexts/AuthContext'
-import { useFonts } from 'expo-font';
-import * as SplashScreen from 'expo-splash-screen';
-
-// SplashScreen.preventAutoHideAsync();
+import { Feather } from '@expo/vector-icons'; 
 
 
 
 export default function Login({ navigation }) {
   
-  const {handleLogin, username, password, setUsername, setPassword, apiMessage, setApiMessage} = useContext(AuthContext);
-  // const [username, setUsername] = useState('testing53');
-  // const [password, setPassword] = useState('123');
-  
-  // const [fontsLoaded] = useFonts({
-  //   'Pacifico': require('../../../assets/fonts/Pacifico-Regular.ttf'),
-  // });
+  const {handleLogin, username, password, setUsername, setPassword, apiMessage} = useContext(AuthContext);
 
-  // const onLayoutRootView = useCallback(async () => {
-  //   if (fontsLoaded) {
-  //     await SplashScreen.hideAsync();
-  //   }
-  // }, [fontsLoaded]);
-
-  // if (!fontsLoaded) {
-  //   return null;
-  // }
-
-  // console.log('fontsLoaded:', fontsLoaded);
-  console.log(apiMessage)
-
-  // useEffect(() => {
-  //     setApiMessage(null)
-  // },[])
 
   return (
-    <View style={styles.container}>
-      <View style={styles.headerContainer}>
-        <Text style={[styles.header, {right: 10}]}>Class</Text>
-        <Text style={[styles.header, {top: -35, left: 20, }]}>Chat</Text>
-      </View>
-      <TextInput 
-        style={styles.inputs} 
-        value={username}
-        onChangeText={username => setUsername(username)}>
-      </TextInput>
-      <TextInput 
-        style={styles.inputs} 
-        value={password} 
-        onChangeText={password => setPassword(password)}>
-      </TextInput>
-      <View style={styles.btnContainer}>
-      {apiMessage !== "Successfully registered" 
-        ? <Text style={{color: 'red', width: 210, fontSize: 16}}>{apiMessage}</Text> 
-        : null}
-      {apiMessage === "Successfully registered"
-          ?  <Text style={{color: 'lightgreen', width: 200, fontSize: 16}}>{apiMessage }</Text> 
+    <ScrollView
+     contentContainerStyle={styles.container}
+     keyboardShouldPersistTaps="never" 
+    >
+      <View style={styles.container}>
+        <View style={styles.headerContainer}>
+          <Text style={[
+            styles.header, {fontWeight: '600', right: 10}]}>Class</Text>
+            <View style={styles.chatAndIcon}>
+              <Text style={[styles.header, {fontWeight: '600', top: -35, left: 20, }]}>Chat</Text>
+              <Feather name="message-square" size={55} style={{bottom: 10}} color="lightgreen" />
+            </View>
+        </View>
+        <TextInput 
+          style={styles.inputs} 
+          value={username}
+          onChangeText={username => setUsername(username)}>
+        </TextInput>
+        <TextInput 
+          style={styles.inputs} 
+          value={password} 
+          onChangeText={password => setPassword(password)}>
+        </TextInput>
+        <View style={styles.btnContainer}>
+        {apiMessage !== "Successfully registered" 
+          ? <Text style={{color: 'red', width: 210, fontSize: 16}}>{apiMessage}</Text> 
           : null}
-        <TouchableOpacity
-          title="Login"
-          style={[styles.buttons, styles.login]}
-          onPress={() => handleLogin(username, password)}>
-          <Text style={{fontWeight: '700'}}>Login</Text>
-        </TouchableOpacity>
-        <TouchableOpacity
-          title="Register"
-          style={[styles.buttons, styles.register]}
-          onPress={() => navigation.navigate('RegisterUser')}>
-          <Text style={{color: '#F7ECE1', fontWeight: '700'}}>Register</Text>
-        </TouchableOpacity>
-
-        {/* <Button style={styles.buttons} title="Login" onPress={() => handleLogin(username, password)} />
-        <Button style={styles.buttons} title="Register user" onPress={() => navigation.navigate('RegisterUser')} /> */}
+        {apiMessage === "Successfully registered"
+            ?  <Text style={{color: 'lightgreen', width: 200, fontSize: 16}}>{apiMessage }</Text> 
+            : null}
+          <TouchableOpacity
+            title="Login"
+            style={[styles.buttons, styles.login]}
+            onPress={() => handleLogin(username, password)}>
+            <Text style={{fontWeight: '700'}}>Login</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            title="Register"
+            style={[styles.buttons, styles.register]}
+            onPress={() => navigation.navigate('RegisterUser')}>
+            <Text style={{color: '#F7ECE1', fontWeight: '700'}}>Register</Text>
+          </TouchableOpacity>
+        </View>
       </View>
-    </View>
+    </ScrollView>
   )
 }
 
@@ -87,20 +68,20 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     },
     headerContainer: {
-      width: 180,
-      // borderWidth: 1,
-      marginBottom: 40,
+      width: 190,
       justifyContent: 'center',
       alignItems: 'center',
-      
+      marginRight: 25,
     },
     header: {
       height: 110,
-      // borderWidth: 1,
-      width: 170,
+      width: 180,
       color: '#F7ECE1',
       fontSize: 65,
-      // fontFamily: 'Pacifico',
+    },
+    chatAndIcon: {
+      flexDirection: 'row',
+      left: 20,
     },
     inputs: {
       height: 50,
@@ -131,7 +112,7 @@ const styles = StyleSheet.create({
       alignItems: 'center',
     },
     login: {
-      backgroundColor: '#F7ECE1',
+      backgroundColor: 'lightgreen',
       
     },
     register: {
