@@ -5,6 +5,9 @@ import * as MediaLibrary from 'expo-media-library';
 import ImagePreview from './ImagePreview';
 import { AuthContext } from '../contexts/AuthContext';
 import { API_ROOT_URL } from '../constants/General';
+import { Feather } from '@expo/vector-icons'; 
+import { Ionicons } from '@expo/vector-icons'; 
+
 
 export default function CameraView({navigation}) {
     const {accessData, image, setImage} = useContext(AuthContext)
@@ -124,13 +127,29 @@ export default function CameraView({navigation}) {
             >
                 <View style={styles.buttonContainer}>
                   <TouchableOpacity style={styles.button} onPress={toggleCameraType}>
-                    <Text style={styles.text}>Flip Camera</Text>
+                    {/* <Text style={styles.text}>Flip Camera</Text> */}
+                    <Feather style={{bottom: 5,}} name="refresh-cw" size={40} color="white" />
                   </TouchableOpacity>
-                  <TouchableOpacity style={styles.button} onPress={toggleFlash}>
-                    <Text style={styles.text}>Toggle Flash</Text>
+                  <TouchableOpacity style={[
+                    styles.button, 
+                    {
+                      borderWidth: 3, 
+                      borderColor: 'white', 
+                      borderRadius: 50,
+                      left: 5,
+                      }
+                  ]} onPress={takePicture}>
+                  <Feather name="camera" style={{margin: 5}} size={40} color="white" />
+                    {/* <Text style={styles.text}>Take Picture</Text> */}
                   </TouchableOpacity>
-                  <TouchableOpacity style={styles.button} onPress={takePicture}>
-                    <Text style={styles.text}>Take Picture</Text>
+                  <TouchableOpacity style={[styles.button, {bottom: 5,}]} onPress={toggleFlash}>
+                    { flash === FlashMode.on
+                      ? 
+                       (<Ionicons name="flash-outline" size={40} color="white"/>)
+                      :
+                       (<Ionicons name="flash-off-outline" size={40} color="white"/>)
+                    }
+                    {/* <Text style={styles.text}>Toggle Flash</Text> */}
                   </TouchableOpacity>
                 </View>
               </Camera>
@@ -151,7 +170,9 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: 'row',
     backgroundColor: 'transparent',
-    margin: 64,
+    marginBottom: 30,
+    alignItems: 'center',
+    gap: 50,
   },
   button: {
     flex: 1,
