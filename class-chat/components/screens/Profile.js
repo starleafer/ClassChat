@@ -7,13 +7,13 @@ import { API_ROOT_URL } from '../constants/General';
 
 const Profile = ({navigation}) => {
 
-  const {handleLogout, accessData, setAccessData } = useContext(AuthContext);
+  const {handleLogout, accessData } = useContext(AuthContext);
+
+  const [firstName, setFirstName] = useState("")
+  const [lastName, setLastName] = useState("")
 
   const getUser = async () => {
-    console.log('getUser accessData '+ accessData)
-    console.log('getUser token-> '+ accessData.accessToken)
-    console.log('getUser firstname-> '+ accessData.firstName)
-    console.log('getUser lastname-> '+ accessData.lastName)
+ 
     try {
       const response = await fetch(API_ROOT_URL+'users', { 
         method: "GET",
@@ -26,23 +26,11 @@ const Profile = ({navigation}) => {
       const user = await response.json();
 
       if(user.data.firstname) {
-        console.log('populate firstName from '+accessData.firstName+' to '+user.data.firstname)
-        setAccessData({...accessData, firstName:user.data.firstname})
-        console.log('firstName is now '+accessData.firstName)
+        setFirstName(user.data.firstname)
       }
       if(user.data.lastname) {
-          console.log('populate lastName '+user.data.lastname)
-          setAccessData({...accessData, lastName:user.data.lastname})
-          console.log('lastName is now '+accessData.firstName)
+        setLastName(user.data.lastname)
       }
-
-      // "firstname" in user.data && "lastname" in user.data
-      //   ? setFetchedUser({firstName: user.data.firstname, lastName: user.data.lastname})
-      //   : "firstname" in user.data || "lastname" in user.data
-      //     ? "firstname" in user.data
-      //       ? setFetchedUser({firstName: user.data.firstname})
-      //       : setFetchedUser({lastName:user.data.lastname})
-      //     : setFetchedUser({firstName: "", lastName: ""})
   
     } catch(error) {
       console.log(error)
@@ -50,9 +38,6 @@ const Profile = ({navigation}) => {
   }
 
   const updateUser = async () => {
-    console.log('updateUser token-> '+ accessData.accessToken)
-    console.log('updateUser firstname-> '+ accessData.firstName)
-    console.log('updateUser lastname-> '+ accessData.lastName)
     try {
       const response = await fetch(API_ROOT_URL+'users', { 
         method: "PATCH",
@@ -61,16 +46,14 @@ const Profile = ({navigation}) => {
           "Authorization": "Bearer " + accessData.accessToken
         },
         body: JSON.stringify({
-          firstname: accessData.firstName,
-          lastname: accessData.lastName,
+          firstname: firstName,
+          lastname: lastName,
         }),
 
       });
 
       const user = await response.json();
   
-      // setAccessData({...accessData, firstName:user.data.firstname, lastName:user.data.lastname})
-
     } catch(error) {
       console.log(error)
     }
@@ -97,8 +80,8 @@ const Profile = ({navigation}) => {
   }
   
   useEffect(() => {
-    getUser();
-  }, []);
+    getUser(); 
+  },[]);
   
   return (
     <View style={styles.container}>
@@ -115,8 +98,8 @@ const Profile = ({navigation}) => {
       </View>
       <View style={styles.contents}>
 
-        <TextInput placeholder='Enter first name..' value={accessData.firstName !== null ? accessData.firstName : ""} onChangeText={(name) => setAccessData({...accessData, firstName: name})}></TextInput>
-        <TextInput placeholder='Enter last name..' value={accessData.lastName ? accessData.lastName : ""} onChangeText={(name) => setAccessData({...accessData, lastName: name})}></TextInput>
+        <TextInput placeholder='Enter first name..' value={firstName ? firstName : ""} onChangeText={(name) => setFirstName(name)}></TextInput>
+        <TextInput placeholder='Enter last name..' value={lastName ? lastName : ""} onChangeText={(name) => setLastName(name)}></TextInput>
         
         <TouchableOpacity style={[styles.buttons]} title="Update user" onPress={() => {updateUser()}}><Text>Update</Text></TouchableOpacity>
         <Button title="Delete user" onPress={() => {deleteUser()}} />

@@ -106,10 +106,15 @@ const AuthProvider = ({children}) => {
                 const registration = await response.json();
                 // console.log(registration)
 
-                if(registration.status == 200) {
-                    return setApiMessage(registration.message)
-                    //   navigatimilon.navigate('Login')
-                    
+                // if(registration.status == 200) {
+                //     return setApiMessage(registration.message)
+                //     //   navigatimilon.navigate('Login')
+                // }
+
+                if(registration.status === 200) {
+                    setApiMessage(registration.message)
+                    return true;
+                    // navigation.navigate('Login');
                 }
 
                 if(registration.status == 409 || registration.status == 500 ) {
@@ -119,7 +124,7 @@ const AuthProvider = ({children}) => {
                     } else if (registration.message === "User validation failed: username: Path `username` is required.") {
                        return setApiMessage('Must enter a username')
                     }
-                    // else return alert(registration.message)
+
                 }
         } catch (error) {
             console.log('registerUser catch -> '+error)
@@ -142,7 +147,7 @@ const AuthProvider = ({children}) => {
             username,
             password,
             setUsername,
-            setPassword
+            setPassword,
         }}>
           {children}
         </AuthContext.Provider>
