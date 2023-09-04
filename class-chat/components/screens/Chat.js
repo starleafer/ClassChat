@@ -124,7 +124,7 @@ const Chat = () => {
                     </TouchableOpacity>
                   )
                 ) : item.user.image !== undefined ? (
-                  <View>
+                  <View style={styles.othersTextContainer}>
                     <Text style={{color: 'grey', margin: 5}}>{item.user.username}</Text>
                     <View style={styles.othersTextAndImage}>
                       <Image 
@@ -145,7 +145,7 @@ const Chat = () => {
                     </View>
                   </View>
                 ) : (
-                  <View>
+                  <View style={styles.othersTextContainer}>
                     <Text style={{color: 'grey', marginLeft: 5,}}>{item.user.username}</Text>
                     <Text style={styles.message}>
                       {item.content}
@@ -155,10 +155,12 @@ const Chat = () => {
                   </View>
                 )
               ) : (
-                <Text style={styles.message}>
-                  {/* {item.date} */}
-                  {item.content}
-                </Text>
+                <View style={styles.othersTextContainer}>
+                  <Text style={styles.message}>
+                    {/* {item.date} */}
+                    {item.content}
+                  </Text>
+                </View>
               )
             ) : (
               <Text>Loading..</Text>
@@ -193,27 +195,30 @@ const styles = StyleSheet.create({
     marginVertical: 10,
   },
   message: {
-    flexDirection: "column",
+    // flexDirection: "column",
     color: "#fff",
+    textAlign: 'left',
     maxWidth: 250,
     padding: 10,
     marginHorizontal: 3,
     borderRadius: 15,
     backgroundColor: "#4c4c4d",
   },
+  othersTextContainer: {
+    alignItems: 'flex-start',
+  },
   othersTextAndImage: {
-    flexDirection: 'row'
+    flexDirection: 'row',
   },
   userTextContainer: {
-    justifyContent: 'flex-end',
-    alignItems: 'flex-end'
+    alignItems: 'flex-end',
   },
   userMessage: {
     color: "#fff",
     backgroundColor: "#298758",
     textAlign: "right",
     borderRadius: 15,
-    paddingHorizontal: 5,
+    padding: 10,
     marginHorizontal: 3,
     padding: 10,
     maxWidth: 250,

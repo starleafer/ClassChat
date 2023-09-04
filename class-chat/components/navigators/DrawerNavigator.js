@@ -30,7 +30,7 @@ const DrawerNavigator = () => {
               headerStyle: {
                 backgroundColor: '#242038',  
                 elevation: 0,                
-              },                            
+              }, 
             }}
             
         />
