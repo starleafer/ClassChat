@@ -32,7 +32,6 @@ export default function Login({ navigation }) {
   console.log(apiMessage)
 
   // useEffect(() => {
-  //   if(apiMessage === 'Username already exists' || apiMessage === 'Must enter a username' ||  apiMessage === 'Password required') 
   //     setApiMessage(null)
   // },[])
 

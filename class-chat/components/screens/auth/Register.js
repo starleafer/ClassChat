@@ -19,11 +19,13 @@ export default function Register({ navigation }) {
     console.log('State error message '+apiMessage )
     
     if ( apiMessage  === "Successfully registered" ) {
-      // console.log('reroute to Login')
-      // setApiMessage('')
-      // alert('Registration successfull')
       navigation.navigate('Login')
     }
+  }
+
+  const Back = () => {
+    navigation.navigate('Login')
+    setApiMessage("")
   }
 
   useEffect(() => {
@@ -60,7 +62,7 @@ export default function Register({ navigation }) {
         {/* Back button */}
         <TouchableOpacity 
           style={styles.buttons} 
-          onPress={() => navigation.navigate('Login')}
+          onPress={Back}
         >
           <Text >&lt; Back to Login page</Text>
         </TouchableOpacity>
