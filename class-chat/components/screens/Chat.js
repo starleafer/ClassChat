@@ -1,18 +1,7 @@
-import {
-  Button,
-  Image,
-  ImageBackground,
-  StyleSheet,
-  Text,
-  View,
-} from "react-native";
+import { Button, Image, ImageBackground, StyleSheet, Text, View, } from "react-native";
 import React, { useContext, useState, useEffect } from "react";
 import { AuthContext } from "../contexts/AuthContext";
-import {
-  FlatList,
-  TextInput,
-  TouchableOpacity,
-} from "react-native-gesture-handler";
+import { FlatList, TextInput, TouchableOpacity } from "react-native-gesture-handler";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import { API_ROOT_URL } from "../constants/General";
 
@@ -81,7 +70,6 @@ const Chat = () => {
   };
 
   useEffect(() => {
-    // isLoggedIn();
     fetchAllMessages();
   }, []);
  
@@ -98,63 +86,81 @@ const Chat = () => {
                 item.user.username === username ? (
                   item.user.image !== null ? (
                     <TouchableOpacity
+                    style={styles.userTextContainer}
                       onLongPress={() => {
                         deleteMessage(item._id);
                       }}
                       delayLongPress={2000}
                     >
-                      <Image 
-                          source={{uri: image}}
-                          style={{width: 100, height: 100}}
-                      />
-                      <Text style={styles.userMessage}>
-                        {item.content}
-                        {item.user.username}
-                      </Text>
+                      <Text style={{color: 'grey', margin: 5,}}>{item.user.username}</Text>
+                      <View style={styles.textAndImage}>
+                        <Text style={styles.userMessage}>
+                          {item.content}
+                          {/* {item.user.username} */}
+                        </Text>
+                        <Image 
+                            source={{uri: image}}
+                            style={styles.userImage}
+                        />
+                      </View>
                     </TouchableOpacity>
                   ) : (
                     <TouchableOpacity
+                    style={styles.userTextContainer}
                       onLongPress={() => {
                         deleteMessage(item._id);
                       }}
                       delayLongPress={2000}
                     >
-                      <Image
+                      {/* <Image
                         source={{uri: image}}
-                        style={{width: 100, height: 100}}
-                      />
+                        style={styles.userImage}
+                      /> */}
+                      <Text style={{color: 'grey', margin: 5,}}>{item.user.username}</Text>
                       <Text style={styles.userMessage}>
                         {item.content}
-                        {item.user.username}
+                        {/* {item.user.username} */}
                       </Text>
                     </TouchableOpacity>
                   )
                 ) : item.user.image !== undefined ? (
-                  <View>
-                    <Image 
-                    style={{ flex: 1, width: 10, height: 10, backgroundColor: 'blue' }}
-                    // source={{ uri: item.user.image }}
-                    />
-                    <Text style={styles.message}>
-                      {item.user.username}
-                      {item.date}
-                      {item.content}
-                    </Text>
+                  <View style={styles.othersTextContainer}>
+                    <Text style={{color: 'grey', margin: 5}}>{item.user.username}</Text>
+                    <View style={styles.othersTextAndImage}>
+                      <Image 
+                      style={{ 
+                        width: 35, 
+                        height: 35, 
+                        borderRadius: 50, 
+                        borderWidth: 1, 
+                        marginTop: 3,
+                        borderColor: 'pink' }}
+                      // source={{ uri: item.user.image }}
+                      />
+                      <Text style={styles.message}>
+                        {item.content}
+                        {/* {item.user.username} */}
+                        {/* {item.date} */}
+                      </Text>
+                    </View>
                   </View>
                 ) : (
-                  <View>
+                  <View style={styles.othersTextContainer}>
+                    <Text style={{color: 'grey', marginLeft: 5,}}>{item.user.username}</Text>
                     <Text style={styles.message}>
-                      {item.user.username}
-                      {item.date}
                       {item.content}
+                      {/* {item.user.username} */}
+                      {/* {item.date} */}
                     </Text>
                   </View>
                 )
               ) : (
-                <Text style={styles.message}>
-                  {item.date}
-                  {item.content}
-                </Text>
+                <View style={styles.othersTextContainer}>
+                  <Text style={styles.message}>
+                    {/* {item.date} */}
+                    {item.content}
+                  </Text>
+                </View>
               )
             ) : (
               <Text>Loading..</Text>
@@ -169,10 +175,9 @@ const Chat = () => {
           onChangeText={(msg) => setTextMsg(msg)}
         ></TextInput>
         <TouchableOpacity style={styles.icon} onPress={() => createMessage()}>
-          <Ionicons name="send" size={30} color="#F7ECE1" />
+          <Ionicons name="send" size={30} color="lightgreen" />
         </TouchableOpacity>
       </View>
-      {/* <Button title="Skicka" onPress={() => createMessage()} /> */}
     </View>
   );
 };
@@ -183,35 +188,51 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: "center",
-    // alignItems: "center",
     backgroundColor: "#242038",
+    paddingHorizontal: 5,
   },
   textContainer: {
     marginVertical: 10,
-    // borderWidth: 1,
-    // paddingHorizontal: 5,
-    // width: '70%'
   },
   message: {
-    flexDirection: "column",
+    // flexDirection: "column",
     color: "#fff",
-    width: 250,
+    textAlign: 'left',
+    maxWidth: 250,
     padding: 10,
     marginHorizontal: 3,
     borderRadius: 15,
-    backgroundColor: "gray",
+    backgroundColor: "#4c4c4d",
+  },
+  othersTextContainer: {
+    alignItems: 'flex-start',
+  },
+  othersTextAndImage: {
+    flexDirection: 'row',
+  },
+  userTextContainer: {
+    alignItems: 'flex-end',
   },
   userMessage: {
     color: "#fff",
-    backgroundColor: "tomato",
+    backgroundColor: "#298758",
     textAlign: "right",
     borderRadius: 15,
-    paddingHorizontal: 5,
-    marginHorizontal: 3,
-    marginLeft: "38%",
     padding: 10,
-    width: 250,
-    // justifyContent: "flex-end",
+    marginHorizontal: 3,
+    padding: 10,
+    maxWidth: 250,
+  },
+  userImage: {
+    borderRadius: 50,
+    marginTop: 3,
+    width: 35,
+    height: 35,
+   borderWidth: 1,
+   borderColor: '#298758',
+  },
+  textAndImage: {
+    flexDirection: 'row'
   },
   inputsContainer: {
     flexDirection: "row",

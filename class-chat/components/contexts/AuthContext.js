@@ -2,6 +2,7 @@ import { View, Text } from 'react-native'
 import React, { createContext, useEffect, useState } from 'react'
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { API_ROOT_URL } from '../constants/General';
+import { StatusBar } from 'expo-status-bar'; 
 
 export const AuthContext = createContext()
 
@@ -149,6 +150,7 @@ const AuthProvider = ({children}) => {
             image,
             setImage
         }}>
+          <StatusBar style="light" /> 
           {children}
         </AuthContext.Provider>
       )
