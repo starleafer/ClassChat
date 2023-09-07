@@ -5,6 +5,7 @@ import Profile from '../screens/Profile';
 import Chat from '../screens/Chat';
 import CameraView from '../screens/CameraView';
 import { Feather } from '@expo/vector-icons';
+import { Ionicons } from '@expo/vector-icons'; 
 
 const Tab = createBottomTabNavigator();
 
@@ -17,14 +18,19 @@ const ProfileNavigator = () => {
       <Tab.Screen 
         name="Profile page" 
         component={Profile}
-        options={{headerShown: false}} />
+        options={{
+          headerShown: false,
+          tabBarLabelStyle: {color: '#298758'},
+          tabBarIcon: () => (
+            <Ionicons name="person-outline" size={24} color="#298758" />
+            ),}} />
       <Tab.Screen 
         name="Camera" 
         component={CameraView} 
         options={{
           headerShown: false,
           tabBarLabelStyle: {color: '#298758'},
-          tabBarIcon: ({ color, size }) => (
+          tabBarIcon: () => (
             <Feather name="camera" size={24} color="#298758" />
             ),
           }}       

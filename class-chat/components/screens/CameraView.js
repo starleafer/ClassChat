@@ -10,7 +10,7 @@ import { Ionicons } from '@expo/vector-icons';
 
 
 export default function CameraView({navigation}) {
-    const {accessData, image, setImage} = useContext(AuthContext)
+    const {accessData, setImage} = useContext(AuthContext)
     
     const [hasCameraPermission, setHasCameraPermission] = useState(null)
     const [hasMediaPermission, setHasMediaPermission] = useState(null)

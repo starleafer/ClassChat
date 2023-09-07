@@ -85,21 +85,18 @@ const Profile = ({navigation}) => {
   
   return (
     <View style={styles.container}>
-      <View style={styles.imgContainer}>
         <Image 
         source={{uri: image}}
-        style={{width: 100, height: 100}}
+        style={styles.img}
         />
-    
-      </View>
       <View style={styles.contents}>
 
-        <TextInput placeholder='Enter first name..' value={firstName ? firstName : ""} onChangeText={(name) => setFirstName(name)}></TextInput>
-        <TextInput placeholder='Enter last name..' value={lastName ? lastName : ""} onChangeText={(name) => setLastName(name)}></TextInput>
+        <TextInput style={[styles.inputFields]} placeholder='Enter first name..' value={firstName ? firstName : ""} onChangeText={(name) => setFirstName(name)}></TextInput>
+        <TextInput style={[styles.inputFields]} placeholder='Enter last name..' value={lastName ? lastName : ""} onChangeText={(name) => setLastName(name)}></TextInput>
         
-        <TouchableOpacity style={[styles.buttons]} title="Update user" onPress={() => {updateUser()}}><Text>Update</Text></TouchableOpacity>
-        {/* <Button title="Delete user" onPress={() => {deleteUser()}} /> */}
-        <Button title="Logout user" onPress={() => {handleLogout()}} />
+        <TouchableOpacity style={[styles.buttons, {backgroundColor:'lightgreen', borderColor: 'lightgreen'}]} title="Update user" onPress={() => {updateUser()}}><Text style={{fontWeight: 'bold'}}>Update</Text></TouchableOpacity>
+        <TouchableOpacity style={[styles.buttons]} title="Logout user" onPress={() => {handleLogout()}}><Text style={{color: '#fff',fontWeight: 'bold'}}>Logout</Text></TouchableOpacity>
+        <TouchableOpacity style={[styles.buttons, {borderColor: 'red'}]} title="Delete user" onPress={() => {deleteUser()}}><Text  style={{color: 'red',fontWeight: 'bold'}}>Delete user</Text></TouchableOpacity>
       </View>
     </View>
   )
@@ -112,24 +109,48 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     height: "100%",
-    backgroundColor: 'wheat',
+    backgroundColor: '#242038',
   },
   imgContainer: {
     borderWidth: 1,
-    height: 100,
-    width:100,
+    borderColor: '#fff',
+    height: 120,
+    width:120,
+    borderRadius: 70,
+  },
+  img: {
+    borderWidth: 1,
+    borderColor: '#fff',
+    height: 120,
+    width:120,
+    borderRadius: 70,
   },
   contents: {
     height: 400,
     width: 300,
-    borderWidth: 1,
+    // borderWidth: 1,
+    alignItems: 'center',
   },
-  buttons: {
+  inputFields: {
     width: 250,
     height: 60,
     marginTop: 25,
+    padding: 10,
     borderRadius: 10,
     borderWidth: 1,
+    fontWeight: 'bold',
+    color: '#fff',
+    borderColor: '#fff',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  buttons: {
+    width: 230,
+    height: 50,
+    marginTop: 25,
+    borderRadius: 10,
+    borderWidth: 1,
+    borderColor: '#fff',
     justifyContent: 'center',
     alignItems: 'center',
   },
