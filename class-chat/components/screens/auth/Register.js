@@ -30,15 +30,16 @@ export default function Register({ navigation }) {
 
   return (
     <View style={styles.container}>
+      <Text style={{color: '#fff', fontWeight: 'bold', fontSize: 30}}>Register user</Text>
       <View style={styles.inputContainer}>
         <TextInput 
-          style={styles.inputs} 
+          style={styles.inputFields} 
           placeholder="Username"
           value={regUsername}
           onChangeText={username => setRegUsername(username)}
         />
         <TextInput 
-          style={styles.inputs} 
+          style={styles.inputFields} 
           placeholder="Password"
           value={regPassword}
           onChangeText={password => setRegPassword(password)}
@@ -49,18 +50,18 @@ export default function Register({ navigation }) {
         {/* Register button */}
       <View style={styles.buttonContainer}>
         <TouchableOpacity 
-          style={[styles.buttons, { borderColor: "green" }]}
+          style={[styles.buttons, { backgroundColor: 'lightgreen' }]}
           onPress={confirmRegister}
         >
-          <Text style={{ color: "green" }}>Register</Text>
+          <Text style={{fontWeight: 'bold'}}>Register</Text>
         </TouchableOpacity>
 
         {/* Back button */}
         <TouchableOpacity 
-          style={styles.buttons} 
+          style={[styles.buttons,{borderWidth: 1}]} 
           onPress={Back}
         >
-          <Text >&lt; Back to Login page</Text>
+          <Text style={{color: '#fff', fontWeight: 'bold'}}>&lt; Back to Login page</Text>
         </TouchableOpacity>
 
       </View>
@@ -71,30 +72,40 @@ export default function Register({ navigation }) {
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: "bisque",
-    height: 730,
+    backgroundColor: '#242038',
+    height: '100%',
+    justifyContent: "center",
+    alignItems: "center",
   },
   inputContainer: {
-    marginTop: 100,
+    marginTop: 50,
+    justifyContent: "center",
+    alignItems: "center",
   },
   buttonContainer: {
     justifyContent: "center",
     alignItems: "center",
   },
-  inputs: {
-    height: 50,
-    borderWidth: 1,
-    marginTop: 20,
-    marginHorizontal: 40,
+  inputFields: {
+    width: 250,
+    height: 60,
+    marginTop: 25,
     padding: 10,
+    borderRadius: 10,
+    fontWeight: 'bold',
+    backgroundColor: '#fff',
+    borderColor: '#fff',
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   buttons: {
-    marginTop: 40,
-    borderWidth: 2,
-    height: 60,
-    width: 180,
-    justifyContent: "center",
-    alignItems: "center",
+    width: 230,
+    height: 50,
+    marginTop: 25,
+    borderRadius: 10,
+    borderColor: '#fff',
+    justifyContent: 'center',
+    alignItems: 'center',
   },
 });
 

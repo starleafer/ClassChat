@@ -94,9 +94,9 @@ const Profile = ({navigation}) => {
         <TextInput style={[styles.inputFields]} placeholder='Enter first name..' value={firstName ? firstName : ""} onChangeText={(name) => setFirstName(name)}></TextInput>
         <TextInput style={[styles.inputFields]} placeholder='Enter last name..' value={lastName ? lastName : ""} onChangeText={(name) => setLastName(name)}></TextInput>
         
-        <TouchableOpacity style={[styles.buttons, {backgroundColor:'#298758'}]} title="Update user" onPress={() => {updateUser()}}><Text style={{color: '#fff',}}>Update</Text></TouchableOpacity>
-        <TouchableOpacity style={[styles.buttons, {backgroundColor:'#4c4c4d'}]} title="Logout user" onPress={() => {handleLogout()}}><Text style={{color: '#fff',}}>Logout</Text></TouchableOpacity>
-        <TouchableOpacity style={[styles.buttons, {backgroundColor:'#ff4247'}]} title="Delete user" onPress={() => {deleteUser()}}><Text  style={{color: '#fff',}}>Delete user</Text></TouchableOpacity>
+        <TouchableOpacity style={[styles.buttons, {backgroundColor:'lightgreen', borderColor: 'lightgreen'}]} title="Update user" onPress={() => {updateUser()}}><Text style={{fontWeight: 'bold'}}>Update</Text></TouchableOpacity>
+        <TouchableOpacity style={[styles.buttons]} title="Logout user" onPress={() => {handleLogout()}}><Text style={{color: '#fff',fontWeight: 'bold'}}>Logout</Text></TouchableOpacity>
+        <TouchableOpacity style={[styles.buttons, {borderColor: 'red'}]} title="Delete user" onPress={() => {deleteUser()}}><Text  style={{color: 'red',fontWeight: 'bold'}}>Delete user</Text></TouchableOpacity>
       </View>
     </View>
   )
@@ -145,8 +145,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   buttons: {
-    width: 250,
-    height: 60,
+    width: 230,
+    height: 50,
     marginTop: 25,
     borderRadius: 10,
     borderWidth: 1,

@@ -10,10 +10,10 @@ const ImagePreview = ({picture, setPicture, savePicture}) => {
             <Image source={{uri: picture.uri}} style={{flex: 1}} />
         <View style={[styles.choiceContainer]}>
             <TouchableOpacity style={styles.deleteImg} onPress={() => {setPicture(null)}}>
-                <Text>DELETE</Text>
+                <Text style={{fontWeight: 'bold'}}>DELETE</Text>
             </TouchableOpacity>
             <TouchableOpacity style={[styles.saveImg]} onPress={() => {savePicture()}}>
-                <Text>SAVE</Text>
+                <Text style={{fontWeight: 'bold'}}>SAVE</Text>
             </TouchableOpacity>
         </View>
     </View>
@@ -30,7 +30,6 @@ const styles = StyleSheet.create({
       choiceContainer: {
         flexDirection: 'row',
         marginVertical: 20,
-        backgroundColor: 'wheat'
         
       },
       deleteImg: {
@@ -40,11 +39,6 @@ const styles = StyleSheet.create({
     saveImg: {
         width: '50%',
         alignItems: 'center',
-    },
-    shadowProp: {
-        shadowColor: '#171717',
-        shadowOffset: {width: -2, height: 4},
-        shadowOpacity: 0.7,
-        shadowRadius: 3,
+        borderLeftWidth:1
     },
 })
